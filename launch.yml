@@ -11,10 +11,10 @@
       private: no
   tasks:
     - name: create SSH key
-    user: >
-      name={{ ansible_user_id }}
-      generate_ssh_key=yes
-      ssh_key_file=.ssh/id_rsa
+      user: >
+        name={{ ansible_user_id }}
+        generate_ssh_key=yes
+        ssh_key_file=.ssh/id_rsa
 
     - name: Register SSH key
       digital_ocean: >
