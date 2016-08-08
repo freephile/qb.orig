@@ -1,0 +1,30 @@
+---
+
+- name: Install Apache apt packages
+  apt: name={{item}}
+    state=latest
+    update_cache=yes
+    force=yes
+  with_items:
+    - apache2
+    - libapache2-mod-auth-mysql
+
+- name: Activate mod rewrite
+  apache2_module: state=present name=rewrite
+  notify: Start Apache2
+
+- name: Install Pear packages
+  command: pear install {{ item }}
+  with_items:
+    - Mail
+    - Net_SMTP
+    - Image_GraphViz
+
+- name: Refresh Pear
+  shell: yes '' | pear clear-cache && pear update-channels && pear upgrade
+
+- name: Install Pecl yaml package
+  shell: yes '' | pecl install yaml
+
+- name: Add extension=yaml.so to php.ini
+  lineinfile: dest=/etc/php5/apache2/php.ini line=extension=yaml.so

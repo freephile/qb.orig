@@ -1,0 +1,20 @@
+---
+
+- name: Place MariaDB install script
+  template: src=install_mariadb.sh.j2
+    dest=/root/install_mariadb.sh
+    mode=700
+
+- name: Install MariaDB
+  command: ./install_mariadb.sh
+    chdir=/root
+
+- name: Install MariaDB apt packages
+  apt: name={{item}}
+    state=latest
+    update_cache=yes
+    force=yes
+  with_items:
+    - libmariadbclient-dev
+
+- include: secure_mariadb.yml

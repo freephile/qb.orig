@@ -1,0 +1,9 @@
+---
+
+- include: install_misc_packages.yml
+- include: install_php.yml
+- include: install_ruby.yml
+- include: install_python_and_libraries.yml
+- include: install_nodejs_and_libraries.yml
+- include: install_mariadb.yml
+- include: install_apache.yml

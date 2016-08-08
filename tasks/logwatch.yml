@@ -1,5 +1,5 @@
 # file: logwatch/tasks/main.yml
-
+# Keep this file for later implementaton as an option.  Currently unused
 - name: Logwatch | Make sure logwatch and its dependencies are installed
   apt:
     pkg: "{{item}}"

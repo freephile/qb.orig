@@ -1,5 +1,5 @@
 ---
-
+# Whoever runs the install becomes a user on the system; and is added to sudoers
 - name: Create admin user
   user: >
     name="{{ ssh_user }}"

@@ -1,0 +1,21 @@
+---
+
+- name: Install packages using APT
+  apt: name={{item}}
+    state=latest
+    update_cache=yes
+    force=yes
+  with_items:
+    - nodejs
+    - npm
+
+- name: Install node.js libraries
+  npm: name={{ item }} state=latest global=yes
+  with_items:
+    - json
+
+# path=link name, src=target
+- name: Create symbolic link for running node.js
+  file: path=/usr/bin/node
+    src=/usr/bin/nodejs
+    state=link

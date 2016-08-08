@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Installing MariaDB server prompts for setting an initial Maria DB root password.
+# This script allows for installing MariaDB without any user interaction and sets
+# the initial MariaDB root password to 'changerootpassword'.
+
+export DEBIAN_FRONTEND=noninteractive
+debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password password changerootpassword'
+debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password_again password changerootpassword'
+apt-get install -y mariadb-server

@@ -64,4 +64,10 @@
     - include: tasks/users.yml
 
   handlers:
-    - include: handlers/site.yml
+    - include: handlers/site.yml  
+  
+  # install all the goodness
+  roles:
+    - qualitybox
+    
+  
