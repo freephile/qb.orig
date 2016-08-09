@@ -54,8 +54,8 @@
         name="{{ do_name }}"
         groups=dohosts
         ansible_ssh_host="{{ do_droplet.droplet.ip_address }}"
-        ansible_ssh_user=root
-        ansible_ssh_private_key_file="{{ do_ssh_private_key }}"
+        ssh_user={{ do_ssh_name }}
+        ssh_private_key_file="{{ do_ssh_private_key }}"
 
 - hosts: dohosts
 
