@@ -10,12 +10,6 @@
       prompt: "DNS name to bind (press return for none)"
       private: no
   tasks:
-    - name: create SSH key
-      user: >
-        name={{ ansible_user_id }}
-        generate_ssh_key=yes
-        ssh_key_file=.ssh/id_rsa
-
     - name: Register SSH key
       digital_ocean: >
         state=present
@@ -54,7 +48,7 @@
         name="{{ do_name }}"
         groups=dohosts
         ansible_ssh_host="{{ do_droplet.droplet.ip_address }}"
-        ssh_user={{ do_ssh_name }}
+        ssh_user=root
         ssh_private_key_file="{{ do_ssh_private_key }}"
 
 - hosts: dohosts
