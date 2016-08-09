@@ -48,11 +48,16 @@
         name="{{ do_name }}"
         groups=dohosts
         ansible_ssh_host="{{ do_droplet.droplet.ip_address }}"
-        ssh_user=root
+        ansible_ssh_user=root
         ssh_private_key_file="{{ do_ssh_private_key }}"
+### need these for xenial  
+#    - name: apt-get update
+#      raw: apt-get update -qq 
+#    - name: Install python 2.7 
+#      raw: apt-get install -qq python2.7 
 
 - hosts: dohosts
-
+  
   vars_files:
     - defaults/main.yml
     - vars.yml
