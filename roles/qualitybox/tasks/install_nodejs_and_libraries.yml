@@ -1,6 +1,6 @@
 ---
 
-- name: Install packages using APT
+- name: Install Nodejs
   apt: name={{item}}
     state=latest
     update_cache=yes
