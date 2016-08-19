@@ -1,5 +1,16 @@
 ---
 
+### Package based variables
+# Apache has a different package name depending on the distribution:
+# For Ubuntu or Debian, it's apache2 while for CentOS or RHEL it's httpd
+# We could just configure a variable here instead of using 'when' in a task
+# when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+# Another option is to dynamically include a hostOS configuration file based on the OS detection
+# like Ubuntu.yml v CentOS.yml 
+# For right now, this whole setup only targets Ubuntu.  But, we've at least switched to
+# the 'package' module which abstracts the handler v. using the 'apt' module.
+apache: apache2
+
 # DO API settings
 do_client_id: ~
 do_api_key: ~

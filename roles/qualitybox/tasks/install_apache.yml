@@ -1,18 +1,21 @@
 ---
 
-- name: Install Apache apt packages
-  apt: name={{item}}
+- name: Install Apache
+  package : name={{ item }} 
     state=latest
-    update_cache=yes
-    force=yes
   with_items:
-    - apache2
+    - "{{ apache }}"
     - libapache2-mod-auth-mysql
-
+  
 - name: Activate mod rewrite
   apache2_module: state=present name=rewrite
   notify: Start Apache2
 
+#https://httpd.apache.org/docs/current/mod/mod_vhost_alias.html
+- name: Activate mod_vhost_alias
+  apache2_module: state=present name=vhost_alias
+  notify: Start Apache2
+  
 - name: Install Pear packages
   command: pear install {{ item }}
   with_items:
