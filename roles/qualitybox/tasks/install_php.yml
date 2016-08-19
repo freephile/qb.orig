@@ -1,15 +1,17 @@
 ---
 
-- name: Install PHP apt packages
+- name: Install PHP packages
   apt: name={{item}}
     state=latest
     update_cache=yes
     force=yes
   with_items:
     - php5
+    - php5-apcu
     - php5-cgi
     - php5-cli
     - php5-curl
+    - php5-gd
     - php5-json
     - php5-odbc
     - php5-tidy
@@ -19,5 +21,6 @@
     - php5-xcache
     - php5-imagick
     - php5-mysqlnd
+#    - php5-mysql
     - php-pear
     - libapache2-mod-php5
