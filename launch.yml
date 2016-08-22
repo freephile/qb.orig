@@ -57,12 +57,17 @@
 #      raw: apt-get install -qq python2.7 
 
 - hosts: dohosts
-  
+
+  gather_facts: no
+
   vars_files:
     - defaults/main.yml
     - vars.yml
 
-  tasks:
+  pre_tasks:
+    - name: Wait for new host to come up
+      local_action: wait_for host={{ ansible_ssh_host }} port=22 state=started delay=10
+    - setup:
     - include: tasks/swap.yml
     - include: tasks/software.yml
     - include: tasks/security.yml
