@@ -1,4 +1,4 @@
-Digital Ocean Bootstrap
+Quality Box
 =======================
 
 Bootstrap Digital Ocean droplets using Ansible to:
@@ -7,8 +7,7 @@ Bootstrap Digital Ocean droplets using Ansible to:
 * Launch a droplet
 * Configure DNS domain
 * Destroy droplet
-
-Inspired by [hostmaster/ansible-digitalocean-bootstrap](https://github.com/hostmaster/ansible-digitalocean-bootstrap).
+* Droplets will be optimized for hosting MediaWiki
 
 
 Installation
