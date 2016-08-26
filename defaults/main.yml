@@ -37,6 +37,7 @@ ssh_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 ufw_allow_ports:
   - 22
   - 80
+  - 443
 
 # Swap settings
 swapfile_location: /swapfile
