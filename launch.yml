@@ -4,7 +4,7 @@
     - vars.yml
   vars_prompt:
     - name: do_name
-      prompt: "Name of server"
+      prompt: "Choose a hostname. Give your Droplet an identifying name you will remember it by. Your Droplet name can only contain alphanumeric characters, dashes, and periods. E.g. web2, partners-db01-nyc1"
       private: no
     - name: do_dns
       prompt: "DNS name to bind (press return for none)"
