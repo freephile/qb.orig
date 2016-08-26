@@ -18,7 +18,7 @@
         ssh_pub_key="{{ do_ssh_pub_key }}"
         api_token={{ do_api_token }}
       register: do_droplet
-      tags: [digital ocean, initial]
+      tags: [digital ocean, bootstrap]
 
     - name: Register Droplet
       digital_ocean: >
@@ -33,7 +33,7 @@
         api_token={{ do_api_token }}
         wait_timeout=600
       register: do_droplet
-      tags: [digital ocean, initial]
+      tags: [digital ocean, bootstrap]
 
     - name: Register DNS
       digital_ocean_domain: >
@@ -42,10 +42,10 @@
         id="{{ do_droplet.droplet.id }}"
         api_token={{ do_api_token }}
       when: do_dns|length > 0
-      tags: [digital ocean, initial]
+      tags: [digital ocean, bootstrap]
 
     - debug: msg="IP is {{ do_droplet.droplet.ip_address }}"
-      tags: [digital ocean, initial, message]
+      tags: [digital ocean, bootstrap, message]
       
     - name: Add new droplet to inventory
       add_host: >
@@ -54,7 +54,7 @@
         ansible_ssh_host="{{ do_droplet.droplet.ip_address }}"
         ansible_ssh_user=root
         ssh_private_key_file="{{ do_ssh_private_key }}"
-        tags: [digital ocean, initial]
+        tags: [digital ocean, bootstrap]
         
 ### need these for xenial  
 #    - name: apt-get update
