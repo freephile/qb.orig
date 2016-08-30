@@ -4,7 +4,7 @@
     - vars.yml
   vars_prompt:
     - name: do_name
-      prompt: "Choose a hostname. Give your Droplet an identifying name you will remember it by. Your Droplet name can only contain alphanumeric characters, dashes, and periods. E.g. web2, partners-db01-nyc1"
+      prompt: "Choose a hostname. Give your Droplet an identifying name you will remember it by. Your Droplet name can only contain alphanumeric characters, dashes, and periods. E.g. web2, wiki.example.com, proj-role-datacenter"
       private: no
     - name: do_dns
       prompt: "DNS name to bind (press return for none)"
@@ -89,6 +89,11 @@
   
   # install all the goodness
   roles:
-    - { role: qualitybox, tags: qualitybox }
-    
-  
+    - { role: qualitybox, tags: qualitybox, mediawiki }
+    - { role: install_mediawiki, tags: mediawiki }
+    - { role: install_extensions, tags: mediawiki, extensions }
+    - { role: install_skins, tags: mediawiki, skins }
+  # finally create the wiki  
+  #post_tasks:
+  #  - include: create_new_wiki.yml
+  #  - vars: WIKI_NAME=slicerwiki

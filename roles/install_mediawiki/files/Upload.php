@@ -1,6 +1,6 @@
 <?php
-
-$wgUploadPath = "$wgScriptPath/img_auth.php";
+# This would be for Image_Authorization which is not recommended https://www.mediawiki.org/wiki/Manual:Image_Authorization
+# $wgUploadPath = "$wgScriptPath/img_auth.php";
 $wgImgAuthPublicTest = false;
 $wgUploadDirectory = "$INSTANCE_DIR/images";
 $wgTmpDirectory = "$INSTANCE_DIR/images/temp";

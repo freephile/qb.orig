@@ -10,6 +10,8 @@
 # For right now, this whole setup only targets Ubuntu.  But, we've at least switched to
 # the 'package' module which abstracts the handler v. using the 'apt' module.
 apache: apache2
+# same for the user that owns files managed by Apache
+apache_user: www-data
 
 # DO API settings
 do_client_id: ~

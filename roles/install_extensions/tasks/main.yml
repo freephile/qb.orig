@@ -4,8 +4,8 @@
     dest={{ MW_WIKIFARM_CONFIG_DIRECTORY }}/{{ item }}
     force=no
     mode=644
-    owner=apache
-    group=apache
+    owner={{ apache_user }}
+    group={{ apache_user }}
   with_items:
     - GlobalExtensions.php
     - LocalExtensions.php
