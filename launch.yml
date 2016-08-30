@@ -90,6 +90,7 @@
   # install all the goodness
   roles:
     - { role: qualitybox, tags: qualitybox, mediawiki }
+    - { role: install_git, tags: qualitybox, mediawiki }
     - { role: install_mediawiki, tags: mediawiki }
     - { role: install_extensions, tags: mediawiki, extensions }
     - { role: install_skins, tags: mediawiki, skins }
