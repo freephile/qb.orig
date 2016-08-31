@@ -89,11 +89,12 @@
   
   # install all the goodness
   roles:
-    - { role: qualitybox, tags: qualitybox, mediawiki }
-    - { role: install_git, tags: qualitybox, mediawiki }
-    - { role: install_mediawiki, tags: mediawiki }
-    - { role: install_extensions, tags: mediawiki, extensions }
-    - { role: install_skins, tags: mediawiki, skins }
+    - { role: qualitybox, tags: ["qualitybox", "mediawiki"] }
+    - { role: install_git, tags: ["qualitybox", "mediawiki"] }
+    - { role: deploy_mw_host, tags: ["qualitybox", "mediawiki"] }
+    - { role: install_mediawiki, tags: ["mediawiki"] }
+    - { role: install_extensions, tags: ["mediawiki", "extensions"] }
+    - { role: install_skins, tags: ["mediawiki", "skins"] }
   # finally create the wiki  
   #post_tasks:
   #  - include: create_new_wiki.yml
