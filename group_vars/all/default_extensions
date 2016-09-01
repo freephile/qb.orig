@@ -31,11 +31,11 @@ DEFAULT_EXTENSIONS:
 
   - name: "Lingo"
     composer: "mediawiki/lingo"
-    version: "1.2.0"
+    version: "~2.0"
 
   - name: "SemanticGlossary"
     composer: "mediawiki/semantic-glossary"
-    version: "1.1.0"
+    version: "~2.0"
 
   - name: "UserFunctions"
     composer: "mediawiki/user-functions"
