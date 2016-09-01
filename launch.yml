@@ -95,10 +95,10 @@
     - { role: install_git, tags: ["qualitybox", "mediawiki"] }
     - { role: deploy_mw_host, tags: ["qualitybox", "mediawiki"] }
 
-  post_tasks:
-    - include: install_mediawiki.yml
-    - include: install_extensions.yml
-    - include: install_skins.yml
-  # finally create the wiki
-  #  - include: create_new_wiki.yml
-  #  - vars: WIKI_NAME=slicerwiki
+# Add more plays to the playbook
+- include: install_mediawiki.yml
+- include: install_extensions.yml
+- include: install_skins.yml
+# finally create the wiki
+#  - include: create_new_wiki.yml
+#  - vars: WIKI_NAME=slicerwiki

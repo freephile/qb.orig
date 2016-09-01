@@ -1,0 +1,18 @@
+[digitalocean]
+# localhost ansible_connection=local
+## Right now do not define any hosts at digital ocean
+
+[home]
+localhost ansible_connection=local
+# qnap is not accessible because it has no python
+# qnap ansible_connection=ssh
+
+[eqt]
+eqt.equality-tech.com
+
+[partners]
+web1 ansible_host=d905-1.BWH.Harvard.edu ansible_user=grundlett
+web2 ansible_host=d905-2.BWH.Harvard.edu ansible_user=grundlett
+
+[mw_hosts]
+wiki.example.com ansible_host=67.205.136.247

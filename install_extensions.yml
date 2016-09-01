@@ -4,6 +4,8 @@
   
   hosts: mw_hosts
 
+  become: true
+  
   roles:
     - install_extensions
 
