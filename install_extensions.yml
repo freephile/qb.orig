@@ -1,0 +1,14 @@
+- name: Install MediaWiki extensions
+
+  tags: ["mediawiki", "extensions"]
+  
+  hosts: mw_hosts
+
+  roles:
+    - install_extensions
+
+  environment: "{{ PROXY_ENV | default({}) }}"
+
+  vars:
+
+    EXTENSIONS: "{{ DEFAULT_EXTENSIONS }}"

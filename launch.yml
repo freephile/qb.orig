@@ -1,0 +1,104 @@
+- hosts: localhost
+  connection: local
+  vars_files:
+    - vars.yml
+  vars_prompt:
+    - name: do_name
+      prompt: "Choose a hostname. Give your Droplet an identifying name you will remember it by. Your Droplet name can only contain alphanumeric characters, dashes, and periods. E.g. web2, wiki.example.com, proj-role-datacenter"
+      private: no
+    - name: do_dns
+      prompt: "DNS name to bind (press return for none)"
+      private: no
+  tasks:
+    - name: Register SSH key
+      digital_ocean: >
+        state=present
+        command=ssh
+        name="{{ do_ssh_name }}"
+        ssh_pub_key="{{ do_ssh_pub_key }}"
+        api_token={{ do_api_token }}
+      register: do_droplet
+      tags: [digital ocean, bootstrap]
+
+    - name: Register Droplet
+      digital_ocean: >
+        state=active
+        command=droplet
+        name={{ do_name }}
+        region_id={{ do_region }}
+        size_id={{ do_size }}
+        image_id={{ do_image }}
+        ssh_key_ids={{ do_droplet.ssh_key.id }}
+        unique_name=yes
+        api_token={{ do_api_token }}
+        wait_timeout=600
+      register: do_droplet
+      tags: [digital ocean, bootstrap]
+
+    - name: Register DNS
+      digital_ocean_domain: >
+        state=present
+        name="{{ do_dns }}"
+        id="{{ do_droplet.droplet.id }}"
+        api_token={{ do_api_token }}
+      when: do_dns|length > 0
+      tags: [digital ocean, bootstrap]
+
+    - debug: msg="IP is {{ do_droplet.droplet.ip_address }}"
+      tags: [digital ocean, bootstrap, message]
+      
+    - name: Add new droplet to inventory
+      add_host: >
+        name="{{ do_name }}"
+        groups=mw_hosts
+        ansible_ssh_host="{{ do_droplet.droplet.ip_address }}"
+        ansible_ssh_user=root
+        ssh_private_key_file="{{ do_ssh_private_key }}"
+        tags: [digital ocean, bootstrap]
+        
+### need these for xenial  
+#    - name: apt-get update
+#      raw: apt-get update -qq 
+#    - name: Install python 2.7 
+#      raw: apt-get install -qq python2.7 
+
+- hosts: mw_hosts
+
+#   strategy: debug
+
+  gather_facts: no
+
+  vars_files:
+    - defaults/main.yml
+    - vars.yml
+
+  pre_tasks:
+    - name: Wait for new host to come up
+      local_action: wait_for host={{ ansible_ssh_host }} port=22 state=started delay=10
+      tags: [connect]
+    - setup:
+    - include: tasks/swap.yml
+      tags: [whitebox, disk]
+    - include: tasks/software.yml
+      tags: [whitebox, packages]
+    - include: tasks/security.yml
+      tags: [whitebox, security]
+    - include: tasks/users.yml
+      tags: [whitebox, users]
+
+  handlers:
+    - include: handlers/site.yml  
+  
+  # install all the goodness
+  roles:
+    - { role: qualitybox, tags: ["qualitybox", "mediawiki"] }
+    - { role: install_git, tags: ["qualitybox", "mediawiki"] }
+    - { role: deploy_mw_host, tags: ["qualitybox", "mediawiki"] }
+
+  post_tasks:
+    - include: install_mediawiki.yml
+    - include: install_extensions.yml
+    - include: install_skins.yml
+  # finally create the wiki
+  #  - include: create_new_wiki.yml
+  #  - vars: WIKI_NAME=slicerwiki

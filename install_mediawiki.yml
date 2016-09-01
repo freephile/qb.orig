@@ -1,0 +1,10 @@
+- name: Install MediaWiki
+  
+  tags: ["mediawiki"] 
+  
+  hosts: mw_hosts
+
+  roles:
+    - install_mediawiki
+
+  environment: "{{ PROXY_ENV | default({}) }}"

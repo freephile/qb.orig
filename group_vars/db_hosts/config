@@ -1,0 +1,2 @@
+# Do not need to specify installation dir of MySQL
+# We will use the package maintainers installation standard

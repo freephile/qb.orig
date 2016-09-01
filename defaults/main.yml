@@ -1,0 +1,56 @@
+---
+
+### Package based variables
+# Apache has a different package name depending on the distribution:
+# For Ubuntu or Debian, it's apache2 while for CentOS or RHEL it's httpd
+# We could just configure a variable here instead of using 'when' in a task
+# when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+# Another option is to dynamically include a hostOS configuration file based on the OS detection
+# like Ubuntu.yml v CentOS.yml 
+# For right now, this whole setup only targets Ubuntu.  But, we've at least switched to
+# the 'package' module which abstracts the handler v. using the 'apt' module.
+apache: apache2
+# same for the user that owns files managed by Apache
+apache_user: www-data
+
+# DO API settings
+do_client_id: ~
+do_api_key: ~
+
+# DO SSH key settings
+do_ssh_name: ansible
+do_ssh_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+do_ssh_private_key: "~/.ssh/id_rsa"
+
+# DO droplet settings
+do_region: nyc1 # New York City
+do_size: 512mb # 512MB
+do_image: ubuntu-14-04-x64 # Ubuntu 14.04 x32
+
+# SSH
+ssh_port: 22
+
+# System user to create
+ssh_user: "{{ lookup('env', 'USERNAME') }}"
+ssh_groups: "sudo"
+ssh_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+# UFW
+ufw_allow_ports:
+  - 22
+  - 80
+  - 443
+
+# Swap settings
+swapfile_location: /swapfile
+swapfile_size: 4G
+swapfile_swappiness: 10
+swapfile_vfs_cache_pressure: 50
+
+# Logwatch
+logwatch_email: "root@localhost"  # Email Address which Logwatch reports to
+logwatch_detail: "low"            # The level of detail in the Logwatch report
+logwatch_range: "yesterday"       # The default time range for the Logwatch report
+logwatch_output: "stdout"         # The output method of the Logwatch report
+logwatch_format: "text"           # The format of the Logwatch report
+logwatch_cron_time: "daily"       # Cron special time specification nickname - must match with logwatch range!

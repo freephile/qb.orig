@@ -1,0 +1,10 @@
+DOCUMENT_ROOT: /var/www
+
+MYSQL_WIKI_PASSWORD: spl
+MYSQL_PORT: 3306
+MYSQL_WIKI_USER: wiki_db_user
+
+EMPTY_WIKI_NAME: emptywiki
+WIKI_EMAIL: no-reply@{{ inventory_hostname }}
+VALIDATE_CERTS: yes
+TIMEZONE: America/New_York

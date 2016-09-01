@@ -1,0 +1,140 @@
+- name: check out MediaWiki from git
+  git:
+    repo={{ MW_GIT_URL }}
+    dest={{ MW_CODE_RELEASE_DIRECTORY }}
+    version=remotes/origin/{{ MW_RELEASE }}
+
+- name: get MediaWiki libraries using composer
+  shell: composer update
+    chdir={{ MW_CODE_RELEASE_DIRECTORY }}
+
+# - name: restore MediaWiki file context
+#  shell: restorecon -Rv {{ MW_DIRECTORY }}
+
+- name: remove LocalSettings.php if it already exists
+  file:
+    path={{ MW_CODE_RELEASE_DIRECTORY }}/LocalSettings.php
+    state=absent
+
+- name: create subdirectory for wiki farm config files
+  file:
+    path={{ MW_WIKIFARM_CONFIG_DIRECTORY }}
+    state=directory
+
+- name: remove empty wiki schema from database if it already exists
+  mysql_db:
+    name={{ EMPTY_WIKI_NAME }}
+    login_host={{ DB_HOST | default("localhost") }}
+    login_user=root
+    state=absent
+
+### BEGIN ad_db_client.yml  
+# These steps are from ad_db_client.yml
+# Need to separate them out again and create firewall rules along with db isolation
+# we don't use the mysql root user password in a variable because we've put it into .my.cnf
+# These steps assume that QualityBox role has already been run to create .my.cnf
+- name: grant access to empty wiki to wiki user (db host != wiki host)
+  mysql_user:
+    name={{ MYSQL_WIKI_USER }}
+    password={{ MYSQL_WIKI_PASSWORD }}
+    priv="{{ EMPTY_WIKI_NAME }}.*:SELECT,INSERT,UPDATE,DELETE,INDEX,ALTER,CREATE,DROP,CREATE TEMPORARY TABLES"
+    append_privs=true
+    host={{ do_name }}
+    login_user=root
+  when: inventory_hostname != do_name
+
+- name: grant access to empty wiki to wiki user (db host == wiki host)
+  mysql_user:
+    name={{ MYSQL_WIKI_USER }}
+    password={{ MYSQL_WIKI_PASSWORD }}
+    priv="{{ EMPTY_WIKI_NAME }}.*:SELECT,INSERT,UPDATE,DELETE,INDEX,ALTER,CREATE,DROP,CREATE TEMPORARY TABLES"
+    append_privs=true
+    host=localhost
+    login_user=root
+  when: inventory_hostname == do_name
+
+- name: grant access to shared wiki database to wiki user (db host != wiki host)
+  mysql_user:
+    name={{ MYSQL_WIKI_USER }}
+    password={{ MYSQL_WIKI_PASSWORD }}
+    priv="{{ SHARED_WIKI_DB_NAME }}.*:SELECT,INSERT,UPDATE,DELETE,INDEX,ALTER,CREATE,DROP,CREATE TEMPORARY TABLES"
+    append_privs=true
+    host={{ do_name }}
+    login_user=root
+  when: inventory_hostname != do_name and SHARED_WIKI_DB_NAME is defined
+
+- name: grant access to shared wiki database to wiki user (db host == wiki host)
+  mysql_user:
+    name={{ MYSQL_WIKI_USER }}
+    password={{ MYSQL_WIKI_PASSWORD }}
+    priv="{{ SHARED_WIKI_DB_NAME }}.*:SELECT,INSERT,UPDATE,DELETE,INDEX,ALTER,CREATE,DROP,CREATE TEMPORARY TABLES"
+    append_privs=true
+    host=localhost
+    login_user=root
+  when: inventory_hostname == do_name and SHARED_WIKI_DB_NAME is defined
+      
+### END of ad_db_client.yml
+
+# we'll create a password rather than have it supplied
+- name: Create wiki admin password
+  command: /usr/bin/openssl rand -base64 16
+  register: wiki_admin_passwd
+
+- name: Show password
+  debug: msg="Your password to login to the wiki is {{ wiki_admin_passwd.stdout }}"
+  tags: [message, security]
+  
+- name: create empty wiki and LocalSettings file
+  shell: php maintenance/install.php {{ EMPTY_WIKI_NAME }} {{ WIKI_ADMIN_USER }} --pass {{ wiki_admin_passwd.stdout }} --dbserver {{ DB_HOST | default("localhost") }} --dbname {{ EMPTY_WIKI_NAME }} --dbuser {{ MYSQL_WIKI_USER }} --dbpass {{ MYSQL_WIKI_PASSWORD }}
+    chdir={{ MW_CODE_RELEASE_DIRECTORY }}
+
+- name: extract keys from generated LocalSettings.php file
+  shell: echo "<?php" > {{ MW_WIKIFARM_CONFIG_DIRECTORY }}/Keys.php; grep "^\$wgSecretKey" LocalSettings.php >> {{ MW_WIKIFARM_CONFIG_DIRECTORY }}/Keys.php; grep "^\$wgUpgradeKey" LocalSettings.php >> {{ MW_WIKIFARM_CONFIG_DIRECTORY }}/Keys.php
+    chdir={{ MW_CODE_RELEASE_DIRECTORY }}
+
+- name: remove newly created LocalSettings.php
+  file:
+    path={{ MW_CODE_RELEASE_DIRECTORY }}/LocalSettings.php
+    state=absent
+
+- name: copy configuration files 1/4
+  template:
+    src=LocalSettings.php.j2
+    dest={{ MW_CODE_RELEASE_DIRECTORY }}/LocalSettings.php
+    mode=644
+    owner={{ apache_user }}
+    group={{ apache_user }}
+
+- name: copy configuration files 2/4
+  copy:
+    src={{ item }}
+    dest={{ MW_WIKIFARM_CONFIG_DIRECTORY }}/{{ item }}
+    mode=644
+    owner={{ apache_user }}
+    group={{ apache_user }}
+  with_items:
+    - Debug.php
+    - Upload.php
+    - Permissions.php
+
+- name: copy configuration files 3/4
+  template:
+    src=Server.php.j2
+    dest={{ MW_WIKIFARM_CONFIG_DIRECTORY }}/Server.php
+    mode=644
+    owner={{ apache_user }}
+    group={{ apache_user }}
+
+- name: copy configuration files 4/4
+  template:
+    src=Email.php.j2
+    dest={{ MW_WIKIFARM_CONFIG_DIRECTORY }}/Email.php
+    mode=644
+    owner={{ apache_user }}
+    group={{ apache_user }}
+
+- name: create link to the newly installed MediaWiki version
+  file:
+    src={{ MW_CODE_RELEASE_DIRECTORY }}
+    dest={{ MW_CODE_DIRECTORY }}
+    state=link

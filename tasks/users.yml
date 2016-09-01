@@ -1,0 +1,14 @@
+---
+# Whoever runs the install becomes a user on the system; and is added to sudoers
+- name: Create admin user
+  user: >
+    name="{{ ssh_user }}"
+    comment="Administrator account"
+    state=present
+    groups="{{ ssh_groups }}"
+    shell=/bin/bash
+    append=yes
+    createhome=yes
+
+- name: Deploy ssh public key
+  authorized_key: user="{{ ssh_user }}" key="{{ ssh_pub_key }}"

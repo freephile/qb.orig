@@ -1,0 +1,33 @@
+---
+
+### Secure ###
+
+- name: Check if file /root/.my.cnf file already exists
+  stat: "path=/root/.my.cnf"
+  register: mycnf_root_file
+
+- name: Create mysql root password
+  command: /usr/bin/openssl rand -base64 16
+  register: mysql_root_passwd
+  when: mycnf_root_file.stat.exists == false
+ 
+- name: Register mysql root password in MySQL
+  mysql_user: name=root host={{ item }}
+    password={{ mysql_root_passwd.stdout }}
+    login_user=root
+    login_password=changerootpassword
+  with_items:
+    - 127.0.0.1
+    - ::1
+    - localhost
+  when: mycnf_root_file.stat.exists == false
+ 
+- name: Create file /root/.my.cnf
+  template: src=my.cnf.j2 dest=/root/.my.cnf owner=root group=root mode=0600
+  when: mycnf_root_file.stat.exists == false
+
+- name: Delete anonymous mysql user
+  mysql_user: name="" state=absent
+ 
+- name: Remove mysql test database
+  mysql_db: name=test state=absent
