@@ -64,6 +64,8 @@
 
 - hosts: mw_hosts
 
+#   strategy: debug
+
   gather_facts: no
 
   vars_files:
@@ -92,10 +94,11 @@
     - { role: qualitybox, tags: ["qualitybox", "mediawiki"] }
     - { role: install_git, tags: ["qualitybox", "mediawiki"] }
     - { role: deploy_mw_host, tags: ["qualitybox", "mediawiki"] }
-    - { role: install_mediawiki, tags: ["mediawiki"] }
-    - { role: install_extensions, tags: ["mediawiki", "extensions"] }
-    - { role: install_skins, tags: ["mediawiki", "skins"] }
-  # finally create the wiki  
-  #post_tasks:
+
+  post_tasks:
+    - include: install_mediawiki.yml
+    - include: install_extensions.yml
+    - include: install_skins.yml
+  # finally create the wiki
   #  - include: create_new_wiki.yml
   #  - vars: WIKI_NAME=slicerwiki

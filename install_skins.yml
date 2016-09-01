@@ -1,5 +1,7 @@
 - name: Install MediaWiki skins
 
+  tags: ["mediawiki", "skins"]
+
   hosts: mw_hosts
 
   roles:

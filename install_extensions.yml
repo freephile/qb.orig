@@ -1,5 +1,7 @@
 - name: Install MediaWiki extensions
 
+  tags: ["mediawiki", "extensions"]
+  
   hosts: mw_hosts
 
   roles:
