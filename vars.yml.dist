@@ -7,7 +7,7 @@ do_ssh_pub_key: "{{ lookup('file', '~/.ssh/id_dsa.pub') }}"
 do_ssh_private_key: "~/.ssh/id_dsa"
 
 # DO droplet settings
-do_region: ams2
+do_region: nyc1
 do_size: 512mb
 do_image: "ubuntu-14-04-x64"
 
