@@ -2,6 +2,8 @@
   
   tags: ["mediawiki"] 
   
+  become: true
+  
   hosts: mw_hosts
 
   roles:
