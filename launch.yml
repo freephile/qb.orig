@@ -99,6 +99,6 @@
 - include: install_mediawiki.yml
 - include: install_extensions.yml
 - include: install_skins.yml
-  # finally create the wiki
-  #  - include: create_new_wiki.yml
-  #  - vars: WIKI_NAME=slicerwiki
+# finally create the wiki
+#  - include: create_new_wiki.yml
+#  - vars: WIKI_NAME=slicerwiki
