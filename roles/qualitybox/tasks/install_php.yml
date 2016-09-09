@@ -23,5 +23,4 @@
     - php5-imagick
     - php5-mysqlnd
 #    - php5-mysql
-    - php-pear
     - libapache2-mod-php5

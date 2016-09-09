@@ -7,3 +7,4 @@
 - include: install_nodejs_and_libraries.yml
 - include: install_mariadb.yml
 - include: install_apache.yml
+- include: install_pear.yml

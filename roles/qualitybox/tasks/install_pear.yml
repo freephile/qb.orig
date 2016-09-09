@@ -1,0 +1,63 @@
+  # Pear
+
+- name: Pear | install pear itself (APT packages)
+  apt: >
+    pkg={{ item }} 
+    state=installed
+    force=yes
+  with_items: 
+    - php-pear
+    - php5-dev
+    - libpcre3-dev
+    - make
+  when: ansible_os_family == 'Debian'
+
+- name: Pear | install pear RPMs
+  yum: >
+    pkg={{ item }} 
+    state=latest
+  with_items:
+    - php-pear
+    - php5-dev
+    - pcre-devel
+    - make
+  when: ansible_os_family in ['CentOS', 'Fedora', 'OpenSuse', 'RedHat']
+
+# Pear Update / Configuration
+
+- name: Pear | update pear packages
+  shell: yes '' | pear clear-cache && pear update-channels && pear upgrade
+
+- name: Pear | set pear auto-discover
+  command: pear config-set auto_discover 1
+
+# Pear Channels 
+
+- name: Pear | install channels
+  command: pear channel-discover {{ item }}
+  with_items: php.pear.channels
+  when: php.pear.channels is defined
+  register: channel_result
+  changed_when: "'initialized' not in channel_result.stdout"
+  # TODO: This will always error out the first time it's run (if channels is defined)
+  failed_when: "'already initialized' not in channel_result.stdout"
+
+# Pear Modules
+# This should be idempotent with the 'and' in the failed_when
+- name: Pear | install pear modules
+  pear: name={{ item }} state=latest
+  with_items:
+    - Mail
+    - Net_SMTP
+    - Image_GraphViz
+  register: pear_result
+  changed_when: "'already installed' not in pear_result.stdout"
+  failed_when: "'already installed' not in pear_result.stdout and pear_result.stderr"
+
+# PECL requirements
+
+- name: Install Pecl yaml package
+  shell: yes '' | pecl install yaml
+
+- name: Add extension=yaml.so to php.ini
+  lineinfile: dest=/etc/php5/apache2/php.ini line=extension=yaml.so
