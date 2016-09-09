@@ -1,13 +1,13 @@
 - name: Create a new wiki - DB tasks
 
-  hosts: "{{ DB_HOST | default(do_name) }}"
+  hosts: "{{ DB_HOST | default(wiki_hostname) }}"
 
   roles:
     - create_new_wiki_on_db_host
 
 - name: Create a new wiki - MediaWiki tasks
 
-  hosts: "{{ do_name }}"
+  hosts: "{{ wiki_hostname }}"
 
   roles:
     - create_new_wiki_on_mw_host

@@ -4,10 +4,10 @@
     password={{ MYSQL_WIKI_PASSWORD }}
     priv="{{ WIKI_NAME }}.*:SELECT,INSERT,UPDATE,DELETE,INDEX,ALTER,CREATE,DROP,CREATE TEMPORARY TABLES"
     append_privs=true
-    host={{ do_name }}
+    host={{ wiki_hostname }}
     login_user=root
     login_password={{ MYSQL_ROOT_PASSWORD }}
-  when: inventory_hostname != do_name
+  when: inventory_hostname != wiki_hostname
 
 - name: grant access to empty wiki to wiki user (db host == wiki host)
   mysql_user:
@@ -17,7 +17,7 @@
     append_privs=true
     host=localhost
     login_user=root
-  when: inventory_hostname == do_name
+  when: inventory_hostname == wiki_hostname
 
 
 - name: create new wiki schema

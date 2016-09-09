@@ -39,9 +39,9 @@
     password={{ MYSQL_WIKI_PASSWORD }}
     priv="{{ EMPTY_WIKI_NAME }}.*:SELECT,INSERT,UPDATE,DELETE,INDEX,ALTER,CREATE,DROP,CREATE TEMPORARY TABLES"
     append_privs=true
-    host={{ do_name }}
+    host={{ wiki_hostname }}
     login_user=root
-  when: inventory_hostname != do_name
+  when: inventory_hostname != wiki_hostname
 
 - name: grant access to empty wiki to wiki user (db host == wiki host)
   mysql_user:
@@ -51,7 +51,7 @@
     append_privs=true
     host=localhost
     login_user=root
-  when: inventory_hostname == do_name
+  when: inventory_hostname == wiki_hostname
 
 - name: grant access to shared wiki database to wiki user (db host != wiki host)
   mysql_user:
@@ -59,9 +59,9 @@
     password={{ MYSQL_WIKI_PASSWORD }}
     priv="{{ SHARED_WIKI_DB_NAME }}.*:SELECT,INSERT,UPDATE,DELETE,INDEX,ALTER,CREATE,DROP,CREATE TEMPORARY TABLES"
     append_privs=true
-    host={{ do_name }}
+    host={{ wiki_hostname }}
     login_user=root
-  when: inventory_hostname != do_name and SHARED_WIKI_DB_NAME is defined
+  when: inventory_hostname != wiki_hostname and SHARED_WIKI_DB_NAME is defined
 
 - name: grant access to shared wiki database to wiki user (db host == wiki host)
   mysql_user:
@@ -71,7 +71,7 @@
     append_privs=true
     host=localhost
     login_user=root
-  when: inventory_hostname == do_name and SHARED_WIKI_DB_NAME is defined
+  when: inventory_hostname == wiki_hostname and SHARED_WIKI_DB_NAME is defined
       
 ### END of ad_db_client.yml
 
