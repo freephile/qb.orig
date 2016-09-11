@@ -1,4 +1,4 @@
-  # Pear
+# Pear
 
 - name: Pear | install pear itself (APT packages)
   apt: >
@@ -25,39 +25,62 @@
 
 # Pear Update / Configuration
 
+- name: Pear | check cache
+  stat: path=/tmp/pear/cache
+  register: pear_cache
+
+# only clear cache if the cache directory exists; otherwise we'd get a 'failure'
+- name: Pear | clear cache
+  shell: yes '' | pear clear-cache
+  when: pear_cache.stat.exists == True
+  
 - name: Pear | update pear packages
-  shell: yes '' | pear clear-cache && pear update-channels && pear upgrade
+  shell: yes '' | pear update-channels && pear upgrade
 
 - name: Pear | set pear auto-discover
   command: pear config-set auto_discover 1
 
 # Pear Channels 
 
+# TODO: This will always error out the first time it's run (if channels is defined)
+# For now we're not using any channels; and so it's not defined in vars
 - name: Pear | install channels
   command: pear channel-discover {{ item }}
   with_items: php.pear.channels
   when: php.pear.channels is defined
   register: channel_result
   changed_when: "'initialized' not in channel_result.stdout"
-  # TODO: This will always error out the first time it's run (if channels is defined)
   failed_when: "'already initialized' not in channel_result.stdout"
 
 # Pear Modules
-# This should be idempotent with the 'and' in the failed_when
-- name: Pear | install pear modules
-  pear: name={{ item }} state=latest
-  with_items:
-    - Mail
-    - Net_SMTP
-    - Image_GraphViz
+
+- name: Pear | install pear mail module
+  pear: name=Mail state=latest
   register: pear_result
-  changed_when: "'already installed' not in pear_result.stdout"
-  failed_when: "'already installed' not in pear_result.stdout and pear_result.stderr"
+  changed_when: "'already installed' not in pear_result.msg"
+
+# - debug: msg="{{ pear_result }}"
+
+- name: Pear | install pear Net_SMTP module
+  pear: name=Net_SMTP state=latest
+  register: pear_result
+  changed_when: "'already installed' not in pear_result.msg"
+
+- name: Pear | install pear Image_GraphViz module
+  pear: name=Image_GraphViz state=latest
+  register: pear_result
+  changed_when: "'already installed' not in pear_result.msg"
 
 # PECL requirements
 
+# We want the yaml package and also fix up the php.ini
 - name: Install Pecl yaml package
-  shell: yes '' | pecl install yaml
+  # "cmd": "yes '' | pecl install --ignore-errors yaml",
+  # the command implementation has .stdout .stderr .rc .start
+  # we use the pear module because it doesn't "fail" when it's run a second time
+  pear: name=pecl/yaml state=latest
+  register: pear_result
+  changed_when: "'already installed' not in pear_result.msg"
 
 - name: Add extension=yaml.so to php.ini
   lineinfile: dest=/etc/php5/apache2/php.ini line=extension=yaml.so
