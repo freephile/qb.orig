@@ -6,9 +6,13 @@
   with_items:
     - ntp
     - fail2ban
+    - monit
+    - munin
 
 - name: Ensure services is running and enabled
   service: name="{{ item }}" state=running enabled=yes
   with_items:
     - ntp
     - fail2ban
+    - monit
+    - munin

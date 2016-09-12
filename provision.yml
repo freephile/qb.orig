@@ -1,7 +1,7 @@
 - hosts: mw_hosts
   # use strategy: debug when you want to debug your playbook
-  strategy: debug
-
+  # strategy: debug
+  remote_user: root
   gather_facts: no
 
   vars_files:
