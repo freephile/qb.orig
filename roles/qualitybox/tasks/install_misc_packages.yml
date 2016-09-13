@@ -6,19 +6,22 @@
     update_cache=yes
     force=yes
   with_items:
-    - unzip
+    - byobu
     - curl
-    - tree
+    - duplicity
+    - git
+    - graphviz
+    - imagemagick
     - libxml2-dev
     - libxslt-dev
-    - git
-    - duplicity
-    - graphviz
-    - ncftp
-    - uuid
-    - imagemagick
-    - lua5.2
-    - vim
-    - python-boto
-    - memcached
     - libyaml-dev
+    - lua5.2
+    - memcached
+    - ncftp
+    - python-boto
+    - screen
+    - tree
+    - unzip
+    - uuid
+    - vim
+
