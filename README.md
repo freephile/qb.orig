@@ -73,6 +73,22 @@ Destroys a server on Digital Ocean.
     ansible-playbook -i hosts destroy.yml
 ```
 
+provision.yml
+-------------
+
+Once you have an inventory file (mv hosts.example hosts and edit to your liking), you can use the provision.yml to roll out all the features of Quality Box
+
+```
+    ansible-playbook provision.yml --extra-vars 'wiki_hostname=wiki.example.com apache_user=www-data'
+```
+
+
+ensure_python.yml
+-----------------
+
+(do not use) For 16.04 support which comes with Python 3 by default while Ansible requires Python 2
+
+
 Known issues
 ------------
 
