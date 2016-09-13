@@ -1,20 +1,20 @@
 Quality Box
 =======================
 
-Bootstrap Digital Ocean droplets using Ansible to:
+Provision virtual machines locally (Vagrant+VirtualBox) or in the cloud (Digital Ocean droplets) using Ansible for orchestration.  The Quality Box will be optimized for production hosting of MediaWiki
 
-* Configure SSH key
+
 * Launch a droplet
-* Configure DNS domain
 * Destroy droplet
-* Droplets will be optimized for hosting MediaWiki
+* Provision the machine
 
 
 Installation
 ------------
 
+* Install [Vagrant](https://www.vagrantup.com/)
+* Optionally Install [VirtualBox](https://www.virtualbox.org/) if you want a GUI for your local virtual machine
 * Install [Ansible 2.0](http://docs.ansible.com/ansible/intro_installation.html)
-
 * Make sure your python path is configured correctly. For example:
 
 ```
@@ -26,6 +26,12 @@ Installation
 
 * Copy vars.yml.dist to vars.yml and change the variables to your need.
 
+Local Development
+-----------------
+
+* Change to the directory where you cloned this repo
+* Issue a 'vagrant up'
+* 'vagrant ssh' to get into the virtual machine
 
 Digital Ocean configuration
 ---------------------------
@@ -56,6 +62,7 @@ What this Playbook do for you?
   - PasswordAuthentication=no
   - AllowGroups=sudo
 - config sudoers
+- A WHOLE LOT MORE that needs to be documented
 
 destroy.yml
 -----------

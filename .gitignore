@@ -1,3 +1,4 @@
+.vagrant
 vars.yml
 node_modules
 *.retry
