@@ -15,7 +15,7 @@
         state=present
         command=ssh
         name="{{ do_ssh_name }}"
-        ssh_pub_key="{{ do_ssh_pub_key }}"
+        ssh_pub_key="{{ ssh_pub_key }}"
         api_token={{ do_api_token }}
       register: do_droplet
       tags: [digital ocean, bootstrap]
@@ -53,7 +53,7 @@
         groups=mw_hosts
         ansible_ssh_host="{{ do_droplet.droplet.ip_address }}"
         ansible_ssh_user=root
-        ssh_private_key_file="{{ do_ssh_private_key }}"
+        ssh_private_key_file="{{ ssh_private_key }}"
         tags: [digital ocean, bootstrap]
     - name: Record hostname for other plays
       set_fact:

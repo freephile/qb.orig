@@ -3,8 +3,6 @@ do_api_token: ~
 
 # DO SSH key settings
 do_ssh_name: ansible
-do_ssh_pub_key: "{{ lookup('file', '~/.ssh/id_dsa.pub') }}"
-do_ssh_private_key: "~/.ssh/id_dsa"
 
 # DO droplet settings
 do_region: nyc1
