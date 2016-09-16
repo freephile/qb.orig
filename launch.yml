@@ -52,8 +52,6 @@
         name="{{ do_name }}"
         groups=mw_hosts
         ansible_ssh_host="{{ do_droplet.droplet.ip_address }}"
-        ansible_ssh_user=root
-        ssh_private_key_file="{{ ssh_private_key }}"
         tags: [digital ocean, bootstrap]
     - name: Record hostname for other plays
       set_fact:
