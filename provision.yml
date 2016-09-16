@@ -1,7 +1,7 @@
 - hosts: mw_hosts
   # use strategy: debug when you want to debug your playbook
   # strategy: debug
-  remote_user: root
+  # remote_user: root
   gather_facts: no
 
   vars_files:
@@ -14,6 +14,12 @@
         wiki_hostname: "{{ inventory_hostname }}"
       when: wiki_hostname is undefined
       # host={{ wiki_hostname | default(inventory_hostname) }}
+      
+      # register the Apache User from defaults/main.yml
+      # to make it available to other included tasks and plays
+    - name : Record our Apache user
+      set_fact:
+        apache_user: "{{ apache_user }}"
     - name: Wait for new host to come up
       local_action: wait_for host={{ ansible_ssh_host }} port=22 state=started delay=0
       tags: [connect]
@@ -22,8 +28,9 @@
       tags: [whitebox, disk]
     - include: tasks/software.yml
       tags: [whitebox, packages]
-    - include: tasks/security.yml
-      tags: [whitebox, security]
+    # temporarily disable the security bits until after the box is built
+    #- include: tasks/security.yml
+      #tags: [whitebox, security]
     - include: tasks/users.yml
       tags: [whitebox, users]
 
