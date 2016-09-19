@@ -84,6 +84,9 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get install apache2
   # SHELL
   
+  # You can have multiple machines defined in one Vagrantfile.  Here we're creating the
+  # "qualitybox" machine.  Later on we could define a "db" machine etc. to more fully 
+  # create a full stack locally
   config.vm.define "qualitybox"
   
   # define a pre-task to add the local user to the vagrant machine
@@ -129,6 +132,8 @@ Vagrant.configure(2) do |config|
     ansible.sudo = true
     ansible.sudo_user = "root"
     ansible.raw_ssh_args = ['-o IdentitiesOnly=yes']
+# If we experience more issues with 'user', then this is how to specify
+#    ansible.extra_vars = { ansible_ssh_user: 'vagrant' }
   end
   
 end
