@@ -1,7 +1,8 @@
 ---
 
 - name: Install unattended-upgrades
-  apt: name={{item}}
+  package: 
+    name={{item}}
     state=latest
     update_cache=yes
     force=yes
