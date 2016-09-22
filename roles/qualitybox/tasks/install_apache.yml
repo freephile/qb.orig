@@ -6,6 +6,8 @@
   with_items:
     - "{{ apache }}"
     - libapache2-mod-auth-mysql
+    - apachetop
+    - apache2-utils
   
 - name: Activate mod rewrite
   apache2_module: state=present name=rewrite
