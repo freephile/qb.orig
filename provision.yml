@@ -2,7 +2,7 @@
   # use strategy: debug when you want to debug your playbook
   # strategy: debug
   # remote_user: root
-  gather_facts: no
+  gather_facts: true
 
   vars_files:
     - defaults/main.yml
