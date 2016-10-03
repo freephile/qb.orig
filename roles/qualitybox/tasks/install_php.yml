@@ -19,6 +19,7 @@
     - php5-common
     - php5-sqlite
     - php5-xmlrpc
+    - php5-xsl
     - php5-xcache
     - php5-imagick
     - php5-mysqlnd
