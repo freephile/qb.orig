@@ -255,3 +255,9 @@ DEFAULT_EXTENSIONS:
   - name: "Piwik"
     url: "https://github.com/DaSchTour/piwik-mediawiki-extension.git"
     version: master
+
+  - name: "Widgets"
+    url: "{{ MW_EXTENSIONS_GIT_URL_ROOT }}Widgets.git"
+    enable: global
+    version: master
+    writable_dirs: compiled_templates

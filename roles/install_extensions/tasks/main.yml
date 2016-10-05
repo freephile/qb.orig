@@ -82,3 +82,7 @@
     line="\n{{ item.config }}"
   with_items: "{{ EXTENSIONS }}"
   when: item.enable is defined and item.enable == "local" and item.config is defined
+
+- name: make directory writable by web server
+  shell: for dir in {{ item.writable_dirs }}; do mkdir {{ MW_CODE_RELEASE_DIRECTORY }}/{{ item.name }}/$dir; chmod a+rw {{ MW_CODE_RELEASE_DIRECTORY }}/{{ item.name }}/$dir; done
+  when: item.writable_dirs is defined
