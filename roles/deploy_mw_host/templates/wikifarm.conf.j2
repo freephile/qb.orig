@@ -19,7 +19,6 @@ SetEnvIf Request_URI "^/([^/]+)" WIKI_NAME=$1
 </Directory>
 
 Include {{ APACHE_CONF_DIRECTORY }}/optional.conf
-Include {{ APACHE_CONF_DIRECTORY }}/http_redirect.conf
 
 {% if (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat') and ansible_distribution_major_version == '6' %}
 

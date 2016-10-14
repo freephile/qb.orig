@@ -10,12 +10,6 @@
     dest="{{ APACHE_CONF_DIRECTORY }}/optional.conf"
     mode=0644
 
-- name: create redirect file
-  template:
-    src=http_redirect.conf.j2
-    dest="{{ APACHE_CONF_DIRECTORY }}/http_redirect.conf"
-    mode=0644
-
 - name: backup original Apache configuration file
   shell: mv /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.orig
     creates=/etc/httpd/conf/httpd.conf.orig
