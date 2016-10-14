@@ -23,11 +23,7 @@ DEFAULT_EXTENSIONS:
 
   - name: "Maps"
     composer: "mediawiki/maps"
-    version: "dev-master#e9763b4"
-
-  - name: "Semantic Maps"
-    composer: "mediawiki/semantic-maps"
-    version: "dev-master#4044cac46e4c8ff833f5000e977022d2580da838"
+    version: "*"
 
   - name: "Lingo"
     composer: "mediawiki/lingo"
