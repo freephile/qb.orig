@@ -7,8 +7,10 @@
     force=yes
   with_items:
     - byobu
+    - bzip2
     - curl
     - duplicity
+#    - gcc
     - git
     - graphviz
     - imagemagick
@@ -24,4 +26,3 @@
     - unzip
     - uuid
     - vim
-

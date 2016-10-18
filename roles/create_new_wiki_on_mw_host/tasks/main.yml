@@ -6,12 +6,9 @@
     owner={{ apache_user }}
     group={{ apache_user }}
 
-- name: restore Apache file context
-  shell: restorecon -Rv {{ APACHE_DIRECTORY }}
-
 - name: restart Apache
   service:
-    name=httpd
+    name={{ apache }}
     state=restarted
 
 - name: create instance directories

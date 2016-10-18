@@ -10,18 +10,34 @@
 #     - php5-apcu
     - php5-cgi
     - php5-cli
+    - php5-common
     - php5-curl
     - php5-dev
     - php5-gd
+    - php5-imagick
     - php5-json
+    - php5-ldap
+    - php5-mysqlnd
     - php5-odbc
-    - php5-tidy
-    - php5-common
+    - php5-readline
     - php5-sqlite
+    - php5-tidy
+    - php5-xcache
     - php5-xmlrpc
     - php5-xsl
-    - php5-xcache
-    - php5-imagick
-    - php5-mysqlnd
-#    - php5-mysql
     - libapache2-mod-php5
+
+- name: edit php configuration file 1/2
+  lineinfile:
+    dest=/etc/php5/apache2/php.ini
+    regexp="^;?memory_limit\s*="
+    line="memory_limit = {{ PHP_MEMORY_LIMIT }}"
+    backup=yes
+  when: PHP_MEMORY_LIMIT is defined
+
+- name: edit php configuration file 2/2
+  lineinfile:
+    dest=/etc/php5/apache2/php.ini
+    regexp="^;?session\.gc_maxlifetime\s*="
+    line="session.gc_maxlifetime = {{ PHP_SESSION_GC_MAXLIFETIME }}"
+  when: PHP_SESSION_GC_MAXLIFETIME is defined

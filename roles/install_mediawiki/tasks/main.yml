@@ -1,3 +1,15 @@
+- name: create MediaWiki directories
+  file:
+    state=directory
+    path={{ item }}
+    mode=2775
+    owner={{ apache_user }}
+    group={{ apache_user }}
+  with_items:
+    - "{{ MW_DIRECTORY }}"
+    - "{{ MW_INSTANCE_DIRECTORY }}"
+    - "{{ MW_WIKIFARM_CONFIG_DIRECTORY }}"
+    
 - name: check out MediaWiki from git
   git:
     repo={{ MW_GIT_URL }}
@@ -8,19 +20,11 @@
   shell: composer update
     chdir={{ MW_CODE_RELEASE_DIRECTORY }}
 
-# - name: restore MediaWiki file context
-#  shell: restorecon -Rv {{ MW_DIRECTORY }}
-
 - name: remove LocalSettings.php if it already exists
   file:
     path={{ MW_CODE_RELEASE_DIRECTORY }}/LocalSettings.php
     state=absent
-
-- name: create subdirectory for wiki farm config files
-  file:
-    path={{ MW_WIKIFARM_CONFIG_DIRECTORY }}
-    state=directory
-
+    
 - name: remove empty wiki schema from database if it already exists
   mysql_db:
     name={{ EMPTY_WIKI_NAME }}

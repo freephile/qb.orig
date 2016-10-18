@@ -17,3 +17,72 @@
 - name: Activate mod_vhost_alias
   apache2_module: state=present name=vhost_alias
   notify: Start Apache
+# Ansible docs don't specify whether it automatically reloads apache
+
+- name: create global wiki farm config file
+  template:
+    src=wikifarm.conf.j2
+    dest="/etc/apache2/sites-available/qualitybox.conf"
+    mode=0644
+
+- name: add additional settings
+  blockinfile:
+    dest="/etc/apache2/sites-available/qualitybox.conf"
+    insertafter: EOF
+    block: |
+## Additional configurations to improve cache and security
+RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK|HEAD|DELETE)
+RewriteRule .* - [F]
+
+<Directory "{{ MW_INSTANCE_DIRECTORY }}/*/*/w">
+  <IfModule mod_expires.c>
+     ExpiresActive On
+     ExpiresDefault "access plus 1 hour"
+     ExpiresByType text/html "access plus 1 day"
+     ExpiresByType image/gif "access plus 1 week"
+     ExpiresByType image/jpeg "access plus 1 week"
+     ExpiresByType image/png "access plus 1 week"
+     ExpiresByType text/css "access plus 1 week"
+     ExpiresByType text/javascript "access plus 1 week"
+     ExpiresByType application/x-javascript "access plus 1 week"
+     ExpiresByType text/xml "access plus 1 day"
+     ExpiresByType image/x-icon "access plus 1 month"
+     ExpiresByType image/ico "access plus 1 month"
+     ExpiresByType image/icon "access plus 1 month"
+  </IfModule>
+</Directory>
+
+<Location />
+  <IfModule mod_deflate.c>
+    # compress content with type html, text, and css
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+    # compress content with type  javascript
+    AddOutputFilterByType DEFLATE application/x-javascript application/javascript text/javascript text/x-js text/x-javascript
+    # Incase the mime type is mot set correctlly
+    AddOutputFilter DEFLATE js css htm html xml
+    <IfModule mod_headers.c>
+      # properly handle requests coming from behind proxies
+      Header append Vary User-Agent
+    </IfModule>
+  </IfModule>
+</Location>
+
+FileETag MTime Size
+
+Header set X-Frame-Options SAMEORIGIN
+
+
+- name: activate farm
+  shell: a2ensite qualitybox
+  #notify: Restart Apache  
+
+
+- name: configure Apache to start at boot
+  service:
+    name={{ apache }}
+    enabled=yes
+
+- name: start Apache
+  service:
+    name={{ apache }}
+    state=restarted

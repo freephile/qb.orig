@@ -1,11 +1,11 @@
 - name: install lua packages
-  yum:
+  package:
     name={{ item }}
     state=latest
   with_items:
-    - php-devel
-    - lua
-    - lua-devel
+    - lua5.2
+    - liblua5.2-dev
+    - luajit
 
 - name: check out luasandbox from git
   git:
@@ -14,13 +14,14 @@
     version=master
 
 - name: compile and install luasandbox
-  shell: phpize && ./configure --prefix=/usr/lib64/php && make all install
+  shell: phpize && ./configure --prefix=/usr/lib/php5 && make all install
   args:
     chdir: /usr/src/luasandbox
 
+# This would probably be handled by the 'make' on Ubuntu
 - name: copy luasandbox initialization file
   copy:
     src=luasandbox.ini
-    dest=/etc/php.d/luasandbox.ini
+    dest=/etc/php5/apache2/conf.d/luasandbox.ini
     mode=0600
     owner=root

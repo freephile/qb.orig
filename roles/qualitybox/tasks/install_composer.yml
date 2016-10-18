@@ -1,4 +1,4 @@
-- name: get composer
+- name: install composer
   get_url:
     url=https://getcomposer.org/composer.phar
     dest=/usr/local/bin/composer
