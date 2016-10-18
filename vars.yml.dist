@@ -18,4 +18,4 @@ swapfile_vfs_cache_pressure: 50
 # System user to create
 ssh_user: "{{ lookup('env', 'USER') }}"
 ssh_groups: "sudo"
-ssh_pub_key: "{{ lookup('file', '~/.ssh/id_dsa.pub') }}"
+ssh_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
