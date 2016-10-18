@@ -69,7 +69,7 @@ Include {{ APACHE_CONF_DIRECTORY }}/optional.conf
    beyond what we do in the Mass Virtual Hosting setup.
    Make sure that these configuration files are not served
 
-IncludeOptional { MW_INSTANCE_DIRECTORY }}/{{ inventory_hostname }}/{{ inventory_hostname_short }}/*.conf
+IncludeOptional {{ MW_INSTANCE_DIRECTORY }}/{{ inventory_hostname }}/{{ inventory_hostname_short }}/*.conf
 #}
 <FilesMatch "\.conf$">
     Require all denied
