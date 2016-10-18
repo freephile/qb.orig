@@ -11,9 +11,9 @@
   
 - name: Activate mod rewrite
   apache2_module: state=present name=rewrite
-  notify: Start Apache2
+  notify: Start Apache
 
 #https://httpd.apache.org/docs/current/mod/mod_vhost_alias.html
 - name: Activate mod_vhost_alias
   apache2_module: state=present name=vhost_alias
-  notify: Start Apache2
+  notify: Start Apache
