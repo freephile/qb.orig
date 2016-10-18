@@ -15,6 +15,7 @@
     repo={{ MW_GIT_URL }}
     dest={{ MW_CODE_RELEASE_DIRECTORY }}
     version=remotes/origin/{{ MW_RELEASE }}
+    force=yes
 
 - name: get MediaWiki libraries using composer
   shell: composer update
