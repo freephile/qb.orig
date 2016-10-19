@@ -22,3 +22,16 @@
     regexp="wfLoadSkin\(\s*['\"]{{ item.name }}['\"]"
     line="wfLoadSkin( '{{ item.name }}' );"
   with_items: "{{ SKINS }}"
+  
+- name: install Chameleon skin
+  shell: composer require "mediawiki/chameleon-skin:~1.0"
+  args: 
+    chdir: "{{ MW_CODE_DIRECTORY }}"
+
+# This will need to be updated to affect the main LocalSettings.php
+- name: make Chameleon the default skin
+  lineinfile:
+    dest={{ MW_WIKIFARM_CONFIG_DIRECTORY }}/Skins.php
+    state=present
+    line="$wgDefaultSkin='chameleon';"
+
