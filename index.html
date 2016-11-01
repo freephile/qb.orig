@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>QB by freephile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">QB</h1>
+      <h2 class="project-tagline">Quality Box</h2>
+      <a href="https://github.com/freephile/qb" class="btn">View on GitHub</a>
+      <a href="https://github.com/freephile/qb/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/freephile/qb/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="quality-box" class="anchor" href="#quality-box" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quality Box</h1>
+
+<p>The QualityBox is a complete solution for hosting a MediaWiki installation similar to what is used to run Wikipedia. There are other options like <code>sudo apt-get install mediawiki</code> but that is just a starting point whereas QualityBox is the full endpoint. By leveraging the Ansible orchestration tool, QualityBox allows you to provision virtual machines locally (using Vagrant + VirtualBox) or in the cloud (e.g. Digital Ocean droplets).  Whereas options like MediaWiki-Vagrant will allow you to quickly build a development instance, the Quality Box is optimized for production hosting of MediaWiki.  For MediaWiki consultants, this turbo-charges your DevOps and Delivery.  For organizations wishing to deploy MediaWiki, this eliminates the many hurdles along the way and opens up the pathway to better support by the same people and organizations that develop QualityBox.</p>
+
+<h2>
+<a id="contents" class="anchor" href="#contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contents</h2>
+
+<p>There are playbooks that will allow you to</p>
+
+<ul>
+<li>Launch a droplet</li>
+<li>Destroy droplet</li>
+<li>Provision the machine</li>
+</ul>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<ul>
+<li>Install <a href="https://www.vagrantup.com/">Vagrant</a>
+</li>
+<li>Optionally Install <a href="https://www.virtualbox.org/">VirtualBox</a> if you want a GUI for your local virtual machine</li>
+<li>Install <a href="http://docs.ansible.com/ansible/intro_installation.html">Ansible 2.0</a>
+</li>
+<li>Make sure your python path is configured correctly. For example:</li>
+</ul>
+
+<pre><code>    # On Ubuntu
+    export PYTHONPATH=/usr/local/lib/python2.7/site-packages
+    # On OS X
+    export PYTHONPATH=/Library/Python/2.7/site-packages
+</code></pre>
+
+<ul>
+<li>Copy vars.yml.dist to vars.yml and change the variables to your need.</li>
+</ul>
+
+<h2>
+<a id="local-development" class="anchor" href="#local-development" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Local Development</h2>
+
+<ul>
+<li>Change to the directory where you cloned this repo</li>
+<li>Issue a 'vagrant up'</li>
+<li>'vagrant ssh' to get into the virtual machine</li>
+</ul>
+
+<h2>
+<a id="digital-ocean-configuration" class="anchor" href="#digital-ocean-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Digital Ocean configuration</h2>
+
+<p>Create a new API key on the <a href="https://cloud.digitalocean.com/api_access">API access page</a>. 
+Add the api_token to <code>vars.yml</code>.</p>
+
+<h1>
+<a id="playbooks" class="anchor" href="#playbooks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Playbooks</h1>
+
+<h2>
+<a id="launchyml" class="anchor" href="#launchyml" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>launch.yml</h2>
+
+<p>Launch and provision a new server on Digital Ocean.</p>
+
+<pre><code>    ansible-playbook -i hosts launch.yml
+</code></pre>
+
+<p>What this Playbook do for you?</p>
+
+<ul>
+<li>configure swap file</li>
+<li>install ufw, fail2ban</li>
+<li>configure ufw allow ports for SSH</li>
+<li>make sshd more secure: 
+
+<ul>
+<li>PermitRootLogin=no</li>
+<li>PasswordAuthentication=no</li>
+<li>AllowGroups=sudo</li>
+</ul>
+</li>
+<li>config sudoers</li>
+<li>A WHOLE LOT MORE that needs to be documented</li>
+</ul>
+
+<h2>
+<a id="destroyyml" class="anchor" href="#destroyyml" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>destroy.yml</h2>
+
+<p>Destroys a server on Digital Ocean.</p>
+
+<pre><code>    ansible-playbook -i hosts destroy.yml
+</code></pre>
+
+<h2>
+<a id="provisionyml" class="anchor" href="#provisionyml" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>provision.yml</h2>
+
+<p>Once you have an inventory file (mv hosts.example hosts and edit to your liking), you can use the provision.yml to roll out all the features of Quality Box</p>
+
+<pre><code>    ansible-playbook provision.yml --extra-vars 'wiki_hostname=wiki.example.com apache_user=www-data'
+</code></pre>
+
+<h2>
+<a id="ensure_pythonyml" class="anchor" href="#ensure_pythonyml" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ensure_python.yml</h2>
+
+<p>(do not use) For 16.04 support which comes with Python 3 by default while Ansible requires Python 2</p>
+
+<h2>
+<a id="known-issues" class="anchor" href="#known-issues" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Known issues</h2>
+
+<ul>
+<li><p>dopy 0.3.7 is broken (error "name 'DoError' is not defined").
+Downgrade use version 0.3.5 using <code>pip install dopy==0.3.5</code>.</p></li>
+<li><p>digital_ocean_domain is broken (error "'Domain' object has no attribute 'id'") when you run the plabook the second time.
+Keep the "DNS name" empty to avoid this error.</p></li>
+</ul>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/freephile/qb">QB</a> is maintained by <a href="https://github.com/freephile">freephile</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
