@@ -1,6 +1,6 @@
 ---
-title: docs analysis
-permalink: /docs/analysis/
+title: analysis
+permalink: /analysis/
 ---
 
 Solution Choices

@@ -1,6 +1,6 @@
 ---
-title: docs look and feel
-permalink: /docs/look_and_feel/
+title: look and feel
+permalink: /look_and_feel/
 ---
 
 The QualityBox features a grid layout. There is a Top navbar, bottom footer with all your content in the middle. [1]

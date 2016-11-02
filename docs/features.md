@@ -1,6 +1,6 @@
 ---
-title: docs features
-permalink: /docs/features/
+title: features
+permalink: /features/
 ---
 
 The emphasis is on a complete feature set, quality, performance, and security that is turn-key, simple to use, and supported.

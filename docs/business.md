@@ -1,6 +1,6 @@
 ---
-title: docs business
-permalink: /docs/business/
+title: business
+permalink: /business/
 ---
 
 <li>

@@ -14,16 +14,28 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: QualityBox
+author: Greg Rundlett
 email: info@equality-tech.com
 description: > # this means to ignore newlines until "baseurl:"
   QualityBox is a complete, turn-key, production-ready, feature-rich hosted
   solution to Enterprise Knowledge Management.  Based on the MediaWiki 
-  platform.  It's totally free software licensed under the GNU Affero license.
-baseurl: "/qb" # the subpath of your site, e.g. /blog
+  platform.  It is totally free software licensed under the GNU Affero license.
+baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://freephile.github.io" # the base hostname & protocol for your site
 twitter_username: eQualityTech
 github_username:  freephile
+# Add in Google Analytics (in production)
+google_analytics: UA-39339059-2
 
 # Build settings
 markdown: kramdown
 theme: minima
+exclude:
+  - Gemfile
+  - Gemfile.lock
+defaults:
+  -
+    scope:
+      path: "" # an emtpy string here means all files in the project
+    values:
+      layout: "default" # add the default layout to all pages/posts

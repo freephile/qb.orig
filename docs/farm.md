@@ -1,6 +1,6 @@
 ---
-title: docs farm
-permalink: /docs/farm/
+title: farm
+permalink: /farm/
 ---
 
 Farm Design

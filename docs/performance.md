@@ -1,6 +1,6 @@
 ---
-title: docs performance
-permalink: /docs/performance/
+title: performance
+permalink: /performance/
 ---
 
 Performance is both technical and a major point in the marketing of the platform. See [business] (business)

@@ -1,6 +1,6 @@
 ---
-title: docs/ Apache
-permalink: /docs/Apache/
+title: Apache
+permalink: /Apache/
 ---
 
 Features

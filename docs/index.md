@@ -1,19 +1,25 @@
 ---
-title: docs
-permalink: /docs/
+title: QualityBox
+permalink: /
 ---
+
+Intro
+-----
+
+The QualityBox is a complete solution for hosting a MediaWiki installation similar to what is used to run Wikipedia. There are other options, like <code>sudo apt-get install mediawiki</code>. But that is just a starting point whereas QualityBox is the full endpoint. By leveraging the Ansible orchestration tool, QualityBox allows you to provision virtual machines locally (using Vagrant + VirtualBox) or in the cloud (e.g. Digital Ocean droplets).  Whereas options like MediaWiki-Vagrant will allow you to quickly build a development instance, the Quality Box is optimized for production hosting of MediaWiki.  For MediaWiki consultants, this turbo-charges your DevOps and Delivery.  For organizations wishing to deploy MediaWiki, QualityBox eliminates the many hurdles along the way. QualityBox opens up the pathway to better support, training, integration or extension by the same people and organizations that develop QualityBox.</p>
+
 
 Source
 ------
 
-There is a private repo at <https://github.com/freephile/qb>
+The source code can be found on GitHub at <https://github.com/freephile/qb>
 
 ### Collaborators
-
-1.  Lex Sulzer <https://github.com/lexsulzer>
-2.  Steve Pieper <https://github.com/pieper>
-3.  Jean Christophe Fillion-Robert <https://github.com/jcfr>
-4.  Yaron Koren <https://github.com/yaronkoren>
+Some initial collaborators include:
+*  Jean Christophe Fillion-Robert <https://github.com/jcfr>
+*  Yaron Koren <https://github.com/yaronkoren>
+*  Steve Pieper <https://github.com/pieper>
+*  Lex Sulzer <https://github.com/lexsulzer>
 
 ToDo
 ----
@@ -26,7 +32,7 @@ ToDo
 
 2.  Make sure the mail system is working (add extra configuration for MediaWiki [1] to tie in with clients mail system?) or set this up as a hosting feature with SendGrid/et al. [2] as the underlying service shared by all domains on a plan
 
-3.  Create website similar to <https://fantasktic.com>
+3.  Create website similar to <https://fantasktic.com> to showcase that we can migrate MediaWiki
 
 4.  Get rid of **EMPTY_WIKI_NAME** in group_vars/all/config... what is it for? I assume it's some kind of chicken and egg thing, but I don't think we need it.
 
@@ -38,63 +44,17 @@ ToDo
 
 8.  Activate the 'install lua sandbox' task
 
-### SPL Project
-
-1.  Review Ansible Galaxy roles for code re-use. There are no MediaWiki roles, and no mod_vhost_alias roles.
-
-2.  ~~Add gatewayed hosts for accessing partners web1 and web2~~ Not possible with old version of SSH running on Partners network
-
-3.  extract out the Droplet create/destroy - it has proved too cumbersome in practice to go from provisioning to configuration in one playbook
-
-    1.  To do this, compare what is in launch.yml now with <https://gist.github.com/leucos/2c361f7d4767f8aea6dd> and also what we have in src/ansible-do-api
-    2.  Cleanup / discard what is in src/qb.1
-
-    3.  Merge ansible-digitalocean with qb
-
-    4.  Use different branches for development rather than separate repos/remotes
-
-4.  add directory ownership/perms so as to [avoid running composer as root](https://getcomposer.org/doc/faqs/how-to-install-untrusted-packages-safely.md)
-
-    1.  Reference: <https://www.mediawiki.org/wiki/Composer/For_extensions> and <https://www.semantic-mediawiki.org/wiki/Help:Using_Composer>
-
-5.  Decide on the correct wiki farm/family layout <https://www.mediawiki.org/wiki/Manual:Wiki_family>
-
-6.  Deploy full QB to "wiki.slicer.org" host on Digital Ocean
-    1.  Finish the user setup and Fix user problems
-        1.  consolidate use of ssh_user
-
-        2.  create qb user as the 'deploy' user. This should be as simple as: create the qb user, create the authorized_keys file, add to the sudo group, provision as qb.
-
-7.  Security See **security** sections below
-
-    1.  Finish the Apache configuration (wiki.example.com should have proper directory and apache config)
-    2.  Review list of extensions and add any missing extensions as either 'global' or 'local'
-        1.  Extensions included (by Cindy)
-        2.  Extensions in slicer.wiki.org (mandatory)
-        3.  Extensions in freephile.org (QB pro-forma)
-        4.  [Extensions wanted](/Extensions_wanted "wikilink") (should add)
-        5.  <https://www.mediawiki.org/wiki/Extension:Site_Settings> site settings for client management of certain aspects? (don't even know if it's compatible)
-
-8.  Copy code/backup to QB from web2
-9.  Test what's working and what's not (wiki and any extensions)
-10. Upgrade from 1.26 to 1.27 - internalize that to Ansible
-    1.  [Review deprecated settings](https://www.mediawiki.org/wiki/Category:MediaWiki_configuration_settings_removed_in_version_1.27.0) for occurences in LocalSettings.php
 
 ### Back Burner
 
 1.  Create documentation of features (deployability, software, extensions like [mw:Extension:Semantic_Glossary/Example Semantic Glossary](/mw:Extension:Semantic_Glossary/Example_Semantic_Glossary "wikilink")
-
     1.  Create PowerPoint / slides
-
-2.  Add vagrant deployment option (See [docs/Vagrant](/docs/Vagrant "wikilink"))
-
+2.  Add vagrant deployment option (See [Vagrant](/Vagrant/))
 3.  Add Search and [PdfHandler](https://www.mediawiki.org/wiki/Extension:PdfHandler) extensions
 4.  Add DNSMasq (or equivalent) <http://www.nickhammond.com/vagrant-and-ansible-for-local-development/> <https://help.ubuntu.com/community/Dnsmasq> to make resolver easier for .dev or .local domains
 5.  Add Docker option <https://docs.ansible.com/ansible/intro_inventory.html#non-ssh-connection-types> although the images provided by docker would need heavy customization, so the case for doing this is not yet clear. Perhaps a service option where 'sandbox' was the service tier would make sense however if it didn't contain the differentiating factors that make QualityBox attractive, then how would the sandbox sell the service?
 6.  create the distinction between creating a db host and web host (e.g. remove 'install apache' from the qualitybox role)
 
-Subpages
---------
 
 Goal
 ----
@@ -105,7 +65,7 @@ The base box should have
 
 1.  Ubuntu Linux 16.04 (gui/no-gui)
 2.  Apache
-3.  MySQL (or MariaDB)
+3.  MariaDB (alternative to MySQL)
 4.  PHP (and extensions)
 5.  memcached
 6.  jenkins?
@@ -172,18 +132,6 @@ Because we can use the script to tell us about the inventory in an ansible compa
 
 <https://cloud.digitalocean.com/droplets>
 
-Log
----
-
-I've used just Ansible (no Vagrant) to provision and destroy boxes at Digital Ocean.
-
-I downloaded and installed the latest (v1.8.4) of Vagrant since my earlier version didn't recognize the latest version of VirtualBox
-
-The installation of vagrant is in `C:\Users\Greg\projects\spl`
-
-The first time you setup the box, you need to run `vagrant halt` and `vagrant up` to re-read the customizations... but actually I'm not sure of that. I don't think there are any customizations in the scripts provided by Lex. The MediaWiki-Vagrant setup that I did for MG was customized.
-
-Over a year ago, I forked[7] the Orain/ansible-playbook [8] to begin an ansible based MediaWiki wiki farm aka QualityBox. Now I'm 453 commits behind them. But their playbook is heavily customized for their specific wikifarm. It is not a generic setup. I've done nothing to make my fork more generic. Also, I have not introduced the specific [features](/features "wikilink") that I think would add value to a generic setup to create an enterprise "distribution" of SMW.
 
 Recipe Notes
 ------------
@@ -262,11 +210,10 @@ For each complex extension like Visual Editor, install dependencies
 Other Notes
 -----------
 
-I might need to expose a Miga data viewer of the CSV data to view the details of the [Private:SPL](/Private:SPL "wikilink") infrastructure. <http://migadv.com/usage/>
 
 [1] <https://www.mediawiki.org/wiki/Manual>:\$wgSMTP
 
-[2] [Private:Email_Marketing](/Private:Email_Marketing "wikilink")
+[2] [Email Marketing](https://freephile.org/wiki/Email_Marketing)
 
 [3] <http://referata.com/wiki/Referata:FAQ#Does_Referata_support_secure_HTTP_.28.22HTTPS.22.29.3F>
 
@@ -275,7 +222,3 @@ I might need to expose a Miga data viewer of the CSV data to view the details of
 [5] <http://referata.com/wiki/Referata:Features>
 
 [6] [Using Inventory Directories and Multiple Inventory Sources](https://docs.ansible.com/ansible/intro_dynamic_inventory.html)
-
-[7] <https://github.com/freephile/ansible-playbook>
-
-[8] <https://github.com/Orain/ansible-playbook>

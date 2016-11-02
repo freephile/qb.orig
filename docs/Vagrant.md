@@ -1,6 +1,6 @@
 ---
-title: docs Vagrant
-permalink: /docs/Vagrant/
+title: Vagrant
+permalink: /Vagrant/
 ---
 
 The QualityBox comes with a Vagrantfile so that you can simply 'vagrant up' in the source directory. The full build will take approximately 45 minutes, but it's a one time procedure until you destroy the box.  If we develop a 'base box' (pre-built box image) for the QualityBox, then initial build times will decrease accordingly.

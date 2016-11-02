@@ -1,6 +1,6 @@
 ---
-title: docs docs
-permalink: /docs/docs/
+title: docs
+permalink: /docs/
 ---
 
 1.  Expand on the Readme

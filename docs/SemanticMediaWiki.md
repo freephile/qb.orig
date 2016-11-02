@@ -1,6 +1,6 @@
 ---
-title: docs SemanticMediaWiki
-permalink: /docs/SemanticMediaWiki/
+title: SemanticMediaWiki
+permalink: /SemanticMediaWiki/
 ---
 
 We will also be installing Semantic MediaWiki ([github](https://github.com/SemanticMediaWiki/SemanticMediaWiki/releases))

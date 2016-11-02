@@ -1,6 +1,6 @@
 ---
-title: docs issues
-permalink: /docs/issues/
+title: issues
+permalink: /issues/
 ---
 
 See https://github.com/freephile/qb/issues for open issues.

@@ -1,6 +1,6 @@
 ---
-title: docs TLS
-permalink: /docs/TLS/
+title: TLS
+permalink: /TLS/
 ---
 
 aka SSL or HTTPS We want to be able to offer secure web services. We intend to use free certificates from the "Let's Encrypt" project.

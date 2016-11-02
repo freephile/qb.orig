@@ -1,6 +1,6 @@
 ---
-title: docs security
-permalink: /docs/security/
+title: security
+permalink: /security/
 ---
 
 Security
