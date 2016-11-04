@@ -6,7 +6,7 @@ permalink: /
 Intro
 -----
 
-The QualityBox is a complete solution for hosting a MediaWiki installation similar to what is used to run Wikipedia. There are other options, like <code>sudo apt-get install mediawiki</code>. But that is just a starting point whereas QualityBox is the full endpoint. By leveraging the Ansible orchestration tool, QualityBox allows you to provision virtual machines locally (using Vagrant + VirtualBox) or in the cloud (e.g. Digital Ocean droplets).  Whereas options like MediaWiki-Vagrant will allow you to quickly build a development instance, the Quality Box is optimized for production hosting of MediaWiki.  For MediaWiki consultants, this turbo-charges your DevOps and Delivery.  For organizations wishing to deploy MediaWiki, QualityBox eliminates the many hurdles along the way. QualityBox opens up the pathway to better support, training, integration or extension by the same people and organizations that develop QualityBox.
+The QualityBox is a complete solution for hosting a MediaWiki installation similar to what is used to run Wikipedia. There are other options for installing MediaWiki on your own server, like <code>sudo apt-get install mediawiki</code>. But that is just a starting point whereas QualityBox is the full endpoint. By leveraging the Ansible orchestration tool, QualityBox allows you to provision virtual machines locally (using Vagrant + VirtualBox) or in the cloud (e.g. Digital Ocean droplets).  Isn't QualityBox duplicating the MediaWiki-Vagrant system? No. MediaWiki-Vagrant will allow you to quickly build a development instance while the Quality Box is optimized for production hosting of MediaWiki.  For MediaWiki consultants, this turbo-charges your DevOps **and** Delivery.  For organizations wishing to deploy MediaWiki, QualityBox eliminates the many hurdles along the way. QualityBox opens up the pathway to better support, training, integration or extension by the same people and organizations that develop QualityBox.
 
 
 Source
@@ -16,23 +16,34 @@ The source code can be found on GitHub at <https://github.com/freephile/qb>
 
 ### Collaborators
 Some initial collaborators include:
-*  Jean Christophe Fillion-Robert <https://github.com/jcfr>
-*  Yaron Koren <https://github.com/yaronkoren>
-*  Steve Pieper <https://github.com/pieper>
-*  Lex Sulzer <https://github.com/lexsulzer>
+* [Jean Christophe Fillion-Robert] (https://github.com/jcfr)
+* [Cindy Cicalese] (https://www.mediawiki.org/wiki/User:Cindy.cicalese)
+* [Yaron Koren] (https://github.com/yaronkoren)
+* [Steve Pieper] (https://github.com/pieper)
+* [Lex Sulzer] (https://github.com/lexsulzer)
+
+Motivation
+----------
+
+Why does QualityBox exist?  Because MediaWiki is an awesome piece of software that powers one of the greatest achievements of the Internet: Wikipedia.  The MediaWiki software is ***freely*** licensed under the GPL, so naturally thousands of organizations use it locally for intranets, documentation websites, fan sites etc.  It's heavily used by the software development industry itself.  But the software has grown in complexity as it has added features over time; thus making it very difficult to deploy for even experienced software developers or system administrators.  Not only is it hard to deploy (nb. the one-click installers fall short), but there are so many aspects that need to be added to a MediaWiki installation to make it "fully furnished" so that an organization can begin using it.  
+
+You need to add at least a "starter pack" [set of templates] (https://www.mediawiki.org/wiki/Template_repository). You need a long list of extensions; and while roughly a dozen excellent ones are distributed with MediaWiki in the default tarball, there are approximately 50 must-have extensions included with QualityBox.  You need content in the Help namespace (aka documentation). No software is great without great documentation.  Plus lots of other [features] (/features/) like security, monitoring, scalability and enterprise support to make it complete.
+
+So [eQuality Technology] (https://eQuality-Tech.com) launched QualityBox to address these needs.  And it's free as in freedom. (Freedom comes with a price: You must share back your code -- according to the terms of the QualityBox [license] (https://github.com/freephile/qb/blob/master/LICENSE).)  QualityBox makes it easy for top-notch free software consultants to offer MediaWiki hosting to their clients. QualityBox makes it easy for organizations, who respect freedom and value collaboration, to deploy QualityBox in their own infrastructure or clouds.  It's our goal that QualityBox will make MediaWiki as prevalent as WordPress is for blogs and Drupal is for websites.  There is no way that an organization should even consider SharePoint for more than 60 seconds when QualityBox is so much more.
+
+See also:
+* [MediaWiki Stakeholder's Group](http://mwstake.org/mwstake/wiki/Main_Page)
+* [MediaWiki Usage Report 2015] (https://www.mediawiki.org/wiki/MediaWiki_Usage_Report_2015)
+
 
 ToDo
 ----
 
 ### QB
-
-1.  Conference call with Lex
-
-    1.  Press Release
+1. Right now, working on a new branch to integrate the [MediaWikiFarm extension] (https://www.mediawiki.org/wiki/Extension:MediaWikiFarm)
+* [install] (https://github.com/wikimedia/mediawiki-extensions-MediaWikiFarm/blob/master/docs/installation.rst)
 
 2.  Make sure the mail system is working (add extra configuration for MediaWiki [1] to tie in with clients mail system?) or set this up as a hosting feature with SendGrid/et al. [2] as the underlying service shared by all domains on a plan
-
-3.  Create website similar to <https://fantasktic.com> to showcase that we can migrate MediaWiki
 
 4.  Get rid of **EMPTY_WIKI_NAME** in group_vars/all/config... what is it for? I assume it's some kind of chicken and egg thing, but I don't think we need it.
 
@@ -44,16 +55,26 @@ ToDo
 
 8.  Activate the 'install lua sandbox' task
 
+9. Add support for other distros (RHEL/Centos); especially by looking at the [meza] (https://github.com/enterprisemediawiki/meza)
+
+### Equality Technology
+
+1.  Create website similar to <https://fantasktic.com> to showcase that we can migrate MediaWiki
+
+2. Discussions with Lex
+
+    1.  Press Release
 
 ### Back Burner
 
 1.  Create documentation of features (deployability, software, extensions like [mw:Extension:Semantic_Glossary/Example Semantic Glossary](/mw:Extension:Semantic_Glossary/Example_Semantic_Glossary "wikilink")
     1.  Create PowerPoint / slides
-2.  Add vagrant deployment option (See [Vagrant](/Vagrant/))
+2.  DONE Add vagrant deployment option (See [Vagrant](/Vagrant/))
 3.  Add Search and [PdfHandler](https://www.mediawiki.org/wiki/Extension:PdfHandler) extensions
 4.  Add DNSMasq (or equivalent) <http://www.nickhammond.com/vagrant-and-ansible-for-local-development/> <https://help.ubuntu.com/community/Dnsmasq> to make resolver easier for .dev or .local domains
 5.  Add Docker option <https://docs.ansible.com/ansible/intro_inventory.html#non-ssh-connection-types> although the images provided by docker would need heavy customization, so the case for doing this is not yet clear. Perhaps a service option where 'sandbox' was the service tier would make sense however if it didn't contain the differentiating factors that make QualityBox attractive, then how would the sandbox sell the service?
 6.  create the distinction between creating a db host and web host (e.g. remove 'install apache' from the qualitybox role)
+7. Add Admin UI; maybe by adding the '[WikiFarm] (https://www.mediawiki.org/wiki/Extension:WikiFarm)' extension.
 
 
 Goal
@@ -69,9 +90,9 @@ The base box should have
 4.  PHP (and extensions)
 5.  memcached
 6.  jenkins?
-7.  munin?
+7.  munin
 8.  monit
-9.  etckeeper?
+9.  etckeeper
 10. git
 11. ssh
 12. ansible
