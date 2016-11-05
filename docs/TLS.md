@@ -3,7 +3,7 @@ title: TLS
 permalink: /TLS/
 ---
 
-aka SSL or HTTPS We want to be able to offer secure web services. We intend to use free certificates from the "Let's Encrypt" project.
+aka SSL or HTTPS. QualityBox uses certificates from the "Let's Encrypt" project.
 
 Ansible Role
 ------------
@@ -13,7 +13,7 @@ I've written a role **ansible-certbot** that installs certbot in /opt
 Pre Requisites
 --------------
 
-Do the DNS first. You can't use certbot until the host your targeting is the same in public DNS because that's the way it works.
+Do the DNS first. You can't use certbot until the host your targeting is the same in public DNS because that's the way it works.  But, there is an option to use certbot against a txt record if you want to setup the host "offline" in a manual way.
 
 To use the role
 ---------------

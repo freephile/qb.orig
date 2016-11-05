@@ -34,13 +34,13 @@ Optionally, but not yet implemented, we could offer "project" wikis that are bas
 Questions
 ---------
 
-<li>
+
 Should we support **Aliases**? There is the form of differing sub-domains e.g. wiki.example.com and kb.example.com both representing the same thing; and/or the form of multiple TLDs representing the same thing, e.g. kb.acme.org kb.acme.com kb.acme.net. We'd need to ensure that DNS resolves for all aliases, and configure Apache with the alias.
 
-<li>
+
 If aliases are supported, we need to redirect to the **Canonical Name** e.g. given that wiki.example.com and kb.example.com represent one website, we need to know which is authoritative, and Alias the other.
 
-</ol>
+
 ### Mass Virtual Hosting
 
 -   wiki.example.com
@@ -80,13 +80,13 @@ VirtualDocumentRoot "/var/www/clients/%-2/%0/w"
 VirtualScriptAlias  "/var/www/clients/%-2/%0/cgi-bin"
 ~~~~
 
-For wiki.example.com, the Document Root will be /var/www/clients/example.com/wiki.example.com comtaining a subdirectory **w** where 'w' is a symbolic link to /var/www/_mw/mediawiki and furthermore, 'mediawiki' itself is a symbolic link to the release version of the software (e.g. mediawiki-REL1_27) running for that client. Our layout would be [1]
+For wiki.example.com, the Document Root will be /var/www/clients/example.com/wiki.example.com comtaining a subdirectory **w** where 'w' is a symbolic link to /var/www/_mw/mediawiki and furthermore, 'mediawiki' itself is a symbolic link to the release version of the software (e.g. mediawiki-REL1_27) running for that client. Our layout would be <sup>[1](#footnote1)</sup>
 
     /var/www/
     |-- clients
-    |   `-- example.com                                <== capable of holding multiple sites for a domain / client
-    |       `-- wiki.example.com                      <== the subdomain (which can still hold multiple (custom) software installs besides mediawiki)
-    |           `-- w -> ../../../_mw/mediawiki      <== the mediawiki codebase is at 'w'
+    |   `-- example.com                     <== capable of holding multiple sites for a domain / client
+    |       `-- wiki.example.com              <== the subdomain (which can still hold multiple (custom) software installs besides mediawiki)
+    |           `-- w -> ../../../_mw/mediawiki <== the mediawiki codebase is at 'w'
     |-- html
     |   `-- index.html
     `-- _mw
@@ -178,6 +178,7 @@ For wiki.example.com, the Document Root will be /var/www/clients/example.com/wik
             |   `-- zordius
             `-- wiki.phtml
 
+
 Farms in MediaWiki Vagrant
 --------------------------
 
@@ -205,4 +206,7 @@ Farm Extensions
 - <https://www.mediawiki.org/wiki/Extension:WikiFarm> looks interesting. However, it's old (not maintained)
 - [Extension:MediaWikiFarm](https://www.mediawiki.org/wiki/Extension:MediaWikiFarm) Bingo!  This is what we are integrating into QualityBox
 
-[1] See [Unicode tricks](https://freephile.org/wiki/Unicode_tricks "wikilink") because this editor is not Unicode safe. In order to get ascii layout, use `--charset=asci` in your `tree` command.
+Footnotes
+---------
+
+<a name="footnote1">[1]</a> See [Unicode tricks](https://freephile.org/wiki/Unicode_tricks "wikilink") because this editor is not Unicode safe. In order to get ascii layout, use `--charset=asci` in your `tree` command.

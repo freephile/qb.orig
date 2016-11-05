@@ -38,7 +38,7 @@ LogFormat "%V %h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\"" comb
 CustomLog "${APACHE_LOG_DIR}/access.log" combined_plus_vhost
 ~~~~
 
-Execute from the command line (move to cron) [1]
+Execute from the command line (move to cron) <sup>[1](#footnote1)</sup>
 
 ~~~~ {.bash}
 split-logfile < access.log
@@ -92,7 +92,7 @@ There are three **roles** (in MTAW) that take various aspects of Apache installa
         - squid (not installed)
         - bzip2 (added)
 
-These packages were integrated into the 'install miscellaneous packages' task. In particular, we eliminated the SELinux and PolicyCore Utilities because Ubuntu uses [AppArmor](https://wiki.ubuntu.com/AppArmor) by default. Although enabled by default (apparmor_status), we might need to implement some profiles like `/etc/apparmor.d/abstractions/apache2-common` </ref>
+These packages were integrated into the 'install miscellaneous packages' task. In particular, we eliminated the SELinux and PolicyCore Utilities because Ubuntu uses [AppArmor](https://wiki.ubuntu.com/AppArmor) by default. Although enabled by default (apparmor_status), we might need to implement some profiles like `/etc/apparmor.d/abstractions/apache2-common`
 
 1.  **create_new_wiki_on_db_host** does the database tasks (not really Apache)
 2.  **create_new_wiki_on_mw_host**
@@ -103,14 +103,14 @@ These packages were integrated into the 'install miscellaneous packages' task. I
 Examples
 --------
 
-Nick Hammond has a simple example for using nginx in a Vagrant/Ansible environment <http://www.nickhammond.com/vagrant-and-ansible-for-local-development/>
+Nick Hammond has a simple example for using nginx in a Vagrant/Ansible environment http://www.nickhammond.com/vagrant-and-ansible-for-local-development/
 
 Performance Tuning
 ------------------
 
 See
 
-1.  [Apache/performance](https://freephile.org/wiki/Apache/performance "wikilink")
+1.  [Apache/performance](https://freephile.org/wiki/Apache/performance)
 2.  [Open Exchange knowledgebase](http://oxpedia.org/wiki/index.php?title=Tune_apache2_for_more_concurrent_connections). Aside: good example of nice (proprietary? 'ox') skin and also an example of an open business
 3.  [How To Tune Apache on Ubuntu 14.04 Server](https://serverfault.com/questions/684424/how-to-tune-apache-on-ubuntu-14-04-server) (ServerFault)
 4.  [How To Optimize Apache Web Server Performance](https://www.digitalocean.com/community/tutorials/how-to-optimize-apache-web-server-performance) (DO)
@@ -126,4 +126,7 @@ service apache2 reload
 apache2ctl fullstatus
 ~~~~
 
-[1] Note that you need the apache2-utils package in Ubuntu to get split-logfile
+Footnotes
+---------
+
+<a name="footnote1">[1]</a> Note that you need the apache2-utils package in Ubuntu to get split-logfile

@@ -16,71 +16,32 @@ The source code can be found on GitHub at <https://github.com/freephile/qb>
 
 ### Collaborators
 Some initial collaborators include:
-* [Jean Christophe Fillion-Robert] (https://github.com/jcfr)
-* [Cindy Cicalese] (https://www.mediawiki.org/wiki/User:Cindy.cicalese)
-* [Yaron Koren] (https://github.com/yaronkoren)
-* [Steve Pieper] (https://github.com/pieper)
-* [Lex Sulzer] (https://github.com/lexsulzer)
+
+* Jean Christophe Fillion-Robert {% include icon-github.html username="jcfr" %}
+* [Cindy Cicalese](https://www.mediawiki.org/wiki/User:Cindy.cicalese)
+* Yaron Koren {% include icon-github.html username="yaronkoren" %}
+* Steve Pieper {% include icon-github.html username="pieper" %}
+* Greg Rundlett {% include icon-github.html username="freephile" %}
+* Lex Sulzer {% include icon-github.html username="lexsulzer" %}
 
 Motivation
 ----------
 
-Why does QualityBox exist?  Because MediaWiki is an awesome piece of software that powers one of the greatest achievements of the Internet: Wikipedia.  The MediaWiki software is ***freely*** licensed under the GPL, so naturally thousands of organizations use it locally for intranets, documentation websites, fan sites etc.  It's heavily used by the software development industry itself.  But the software has grown in complexity as it has added features over time; thus making it very difficult to deploy for even experienced software developers or system administrators.  Not only is it hard to deploy (nb. the one-click installers fall short), but there are so many aspects that need to be added to a MediaWiki installation to make it "fully furnished" so that an organization can begin using it.  
+Why does QualityBox exist?  Because MediaWiki is an awesome piece of software that powers one of the greatest achievements of the Internet: [Wikipedia](https://www.wikipedia.org).  The MediaWiki software is ***freely*** licensed under the GPL, so naturally thousands of organizations use it locally for intranets, documentation websites, fan sites etc.  It's heavily used by the software development industry itself.  But like any [modern internet application](https://upload.wikimedia.org/wikipedia/commons/5/51/Wikipedia_webrequest_flow_2015-10.png), the software has grown in complexity over time; thus making it very difficult to deploy for even experienced software developers or system administrators.  Not only is it hard to deploy (nb. the one-click installers fall short), there are also many many aspects that need to be added to a MediaWiki installation to make it "fully furnished"; to a point where you can just "move right in" and begin using it.  
 
-You need to add at least a "starter pack" [set of templates] (https://www.mediawiki.org/wiki/Template_repository). You need a long list of extensions; and while roughly a dozen excellent ones are distributed with MediaWiki in the default tarball, there are approximately 50 must-have extensions included with QualityBox.  You need content in the Help namespace (aka documentation). No software is great without great documentation.  Plus lots of other [features] (/features/) like security, monitoring, scalability and enterprise support to make it complete.
+You need to add at least a "starter pack" [set of templates](https://www.mediawiki.org/wiki/Template_repository). You need a long list of extensions; and while roughly a dozen excellent ones are distributed with MediaWiki in the default tarball, there are approximately 50 must-have extensions integrated into the QualityBox. No software is great without great documentation, so we include all the essential Help (aka documentation). Plus, QualityBox includes lots of other [features](/features/) like security, monitoring, scalability and enterprise support to make it complete.  We're even planning on optional add-on packs for specific usage scenarios like setting up a contact directory.  And it needs to be beautiful, flexible and graphically rich - so we have the best themes that make QualityBox both mobile-first and more intuitive; and pre-load it with a scalable vector graphic icon set and integrate it with [MediaWiki Commons](https://commons.wikimedia.org).
 
-So [eQuality Technology] (https://eQuality-Tech.com) launched QualityBox to address these needs.  And it's free as in freedom. (Freedom comes with a price: You must share back your code -- according to the terms of the QualityBox [license] (https://github.com/freephile/qb/blob/master/LICENSE).)  QualityBox makes it easy for top-notch free software consultants to offer MediaWiki hosting to their clients. QualityBox makes it easy for organizations, who respect freedom and value collaboration, to deploy QualityBox in their own infrastructure or clouds.  It's our goal that QualityBox will make MediaWiki as prevalent as WordPress is for blogs and Drupal is for websites.  There is no way that an organization should even consider SharePoint for more than 60 seconds when QualityBox is so much more.
+So [eQuality Technology](https://eQuality-Tech.com) launched QualityBox to address these needs.  And it's free as in freedom. (Freedom comes with a price: If you modify and re-distribute the code, you must share back your code -- according to the terms of the QualityBox [license](https://github.com/freephile/qb/blob/master/LICENSE).)  QualityBox makes it easy for top-notch free software consultants to offer MediaWiki hosting to their clients. QualityBox makes it easy for organizations, who respect freedom and value collaboration, to deploy QualityBox in their own infrastructure or clouds.  It's our goal that QualityBox will make MediaWiki as prevalent as WordPress is for blogs and Drupal is for websites.  Or to put it another way: there is no way that an organization should even consider Microsoft SharePoint for more than 60 seconds when QualityBox is so much more.
 
 See also:
+
 * [MediaWiki Stakeholder's Group](http://mwstake.org/mwstake/wiki/Main_Page)
-* [MediaWiki Usage Report 2015] (https://www.mediawiki.org/wiki/MediaWiki_Usage_Report_2015)
-
-
-ToDo
-----
-
-### QB
-1. Right now, working on a new branch to integrate the [MediaWikiFarm extension] (https://www.mediawiki.org/wiki/Extension:MediaWikiFarm)
-* [install] (https://github.com/wikimedia/mediawiki-extensions-MediaWikiFarm/blob/master/docs/installation.rst)
-
-2.  Make sure the mail system is working (add extra configuration for MediaWiki [1] to tie in with clients mail system?) or set this up as a hosting feature with SendGrid/et al. [2] as the underlying service shared by all domains on a plan
-
-4.  Get rid of **EMPTY_WIKI_NAME** in group_vars/all/config... what is it for? I assume it's some kind of chicken and egg thing, but I don't think we need it.
-
-5.  Add support for separating wiki host from db host. See <https://gist.github.com/halberom/0663ef9933360fcf7141> for gist on how to use 'gather_facts' on one group of hosts (e.g. db servers) to fill out a template for another set of hosts (web servers).
-
-6.  replace usage of **MYSQL_WIKI_PASSWORD** with actual random password; or user supplied password (found in ./roles/install_mediawiki and ./roles/create_new_wiki_on_db_host)
-
-7.  Test and determine best email solution. We **do** have Pear mail installed . What about Swiftmailer?
-
-8.  Activate the 'install lua sandbox' task
-
-9. Add support for other distros (RHEL/Centos); especially by looking at the [meza] (https://github.com/enterprisemediawiki/meza)
-
-### Equality Technology
-
-1.  Create website similar to <https://fantasktic.com> to showcase that we can migrate MediaWiki
-
-2. Discussions with Lex
-
-    1.  Press Release
-
-### Back Burner
-
-1.  Create documentation of features (deployability, software, extensions like [mw:Extension:Semantic_Glossary/Example Semantic Glossary](/mw:Extension:Semantic_Glossary/Example_Semantic_Glossary "wikilink")
-    1.  Create PowerPoint / slides
-2.  DONE Add vagrant deployment option (See [Vagrant](/Vagrant/))
-3.  Add Search and [PdfHandler](https://www.mediawiki.org/wiki/Extension:PdfHandler) extensions
-4.  Add DNSMasq (or equivalent) <http://www.nickhammond.com/vagrant-and-ansible-for-local-development/> <https://help.ubuntu.com/community/Dnsmasq> to make resolver easier for .dev or .local domains
-5.  Add Docker option <https://docs.ansible.com/ansible/intro_inventory.html#non-ssh-connection-types> although the images provided by docker would need heavy customization, so the case for doing this is not yet clear. Perhaps a service option where 'sandbox' was the service tier would make sense however if it didn't contain the differentiating factors that make QualityBox attractive, then how would the sandbox sell the service?
-6.  create the distinction between creating a db host and web host (e.g. remove 'install apache' from the qualitybox role)
-7. Add Admin UI; maybe by adding the '[WikiFarm] (https://www.mediawiki.org/wiki/Extension:WikiFarm)' extension.
-
+* [MediaWiki Usage Report 2015](https://www.mediawiki.org/wiki/MediaWiki_Usage_Report_2015)
 
 Goal
 ----
 
-My goal is to create an automated and repeatable way to specify and deploy a "base" box which can be deployed on a number of cloud providers: namely VirtualBox for local development; Digital Ocean for ease of use and cost; AWS for larger enterprise customers who prefer to use Amazon. Future providers might include VMware.
+My goal is to create an automated and repeatable way to specify and deploy a "base" box which can be deployed on a number of cloud providers: namely VirtualBox for local development; Digital Ocean for ease of use and cost; AWS for larger enterprise customers who prefer to use Amazon. Future providers might include VMware.  Already we have both a VirtualBox local target and a DigitalOcean cloud target; and can deploy virtually anywhere we have SSH access to.
 
 The base box should have
 
@@ -104,7 +65,7 @@ Depending on the provider, there may be extra configurations or requirements
 Provision
 ---------
 
-The process should look like (initially I was focused on Vagrant first, but now I'm deploying to DO first, and we'll add Vagrant support later. See the certbot project for what looks like an advanced usage of Vagrant)
+The process should look like
 
 ~~~~ {.bash}
 cd ~/vagrant
@@ -113,7 +74,9 @@ vagrant init quality-box
 vagrant up
 ~~~~
 
-The QualityBox is based on a prebuilt image (nb: not true - unless we adopt Lex's approach. At the moment, we install a base Ubuntu, and modify that.) that we've made rather than recreating the box step by step for each installation. See [Creating a base box](https://www.vagrantup.com/docs/boxes/base.html)
+(See the certbot project for what looks like an advanced usage of Vagrant)
+
+The QualityBox is based on a bare-bones Ubuntu distribution, and we modify that. We will probably begin packaging our base box to speed deploy times but that's not on the critical path for us because we create once, while managing nodes is much more important in the long run. See [Creating a base box](https://www.vagrantup.com/docs/boxes/base.html)
 
 Pricing / Costs
 ---------------
@@ -124,12 +87,12 @@ If using Docker, pricing depends on whether it's cloud or premise, and ranges fr
 
 ### Comparisons
 
-Referata.com does not support HTTPS[3]. And, it has a limited set of extensions [4]. There are 4 plans [5] that range in price from (free), \$20, \$50 and \$80/mo. The free tier is especially not remarkable. The only plans that offer a domain name are \$50 and \$80 with no mention of the RAM and CPU dedicated (hint: it is slow). Speaking with Yaron, the QualityBox should be priced at \$300/mo
+Referata.com is a great place to host a wiki for minimal cost.  And they deserve all the respect in the world. However, they currently do not support HTTPS <sup>[3](#footnote3)</sup>. And, it has a limited set of extensions <sup>[4](#footnote4)</sup>. There are 4 plans <sup>[5](#footnote5)</sup> that range in price from (free), \$20, \$50 and \$80/mo. The free tier is especially not remarkable. The only plans that offer a domain name are \$50 and \$80 with no mention of the RAM and CPU dedicated (hint: it is slow). Speaking with Yaron, the QualityBox should be priced at \$300/mo  Hopefully Referata will soon be offering QualityBox hosting.
 
 Inventory
 ---------
 
-We'll (probably?) have both static hosts (our own that we want to refer to explicitly) and dynamic hosts (clients' servers which we can refer to by naming convention or id) to operate on. This is sometimes referred to as a 'hybrid cloud'. With Ansible, you can specify an inventory directory where multiple sources are found. Executable files are treated as dynamic sources. [6]
+We'll (probably?) have both static hosts (our own that we want to refer to explicitly) and dynamic hosts (clients' servers which we can refer to by naming convention or id) to operate on. This is sometimes referred to as a 'hybrid cloud'. With Ansible, you can specify an inventory directory where multiple sources are found. Executable files are treated as dynamic sources. <sup>[6](#footnote6)</sup>
 
 ### Python Script
 
@@ -165,7 +128,7 @@ How do I create certificates?? There is a Letsencrypt module in the "[Web Infras
 
 > 1.  this won't work because you can't get a cert for a domain that isn't yours
 >
-> greg@eqt:\~/certificates\$ \~/bin/letsencrypt/letsencrypt-auto --domain wiki.slicer.org --apache certonly --dry-run
+> greg@eqt:\~/certificates\$ \~/bin/letsencrypt/letsencrypt-auto --domain wiki.example.org --apache certonly --dry-run
 
 Do we want to enable an interwiki table to facilitate transclusion between wikis?
 
@@ -228,18 +191,12 @@ grep -Po '(?<=name: ")[^"]*' ./mediawiki-tools-ansible-wikifarm/group_vars/all/d
 
 For each complex extension like Visual Editor, install dependencies
 
-Other Notes
+Footnotes
 -----------
 
-
-[1] <https://www.mediawiki.org/wiki/Manual>:\$wgSMTP
-
-[2] [Email Marketing](https://freephile.org/wiki/Email_Marketing)
-
-[3] <http://referata.com/wiki/Referata:FAQ#Does_Referata_support_secure_HTTP_.28.22HTTPS.22.29.3F>
-
-[4] <http://referata.com/wiki/Referata:About>
-
-[5] <http://referata.com/wiki/Referata:Features>
-
-[6] [Using Inventory Directories and Multiple Inventory Sources](https://docs.ansible.com/ansible/intro_dynamic_inventory.html)
+<a name="footnote1">[1]</a> <https://www.mediawiki.org/wiki/Manual:$wgSMTP>  
+<a name="footnote2">[2]</a> [Email Marketing](https://freephile.org/wiki/Email_Marketing)  
+<a name="footnote3">[3]</a> <http://referata.com/wiki/Referata:FAQ#Does_Referata_support_secure_HTTP_.28.22HTTPS.22.29.3F>  
+<a name="footnote4">[4]</a> <http://referata.com/wiki/Referata:About>  
+<a name="footnote5">[5]</a> <http://referata.com/wiki/Referata:Features>  
+<a name="footnote6">[6]</a> [Using Inventory Directories and Multiple Inventory Sources](https://docs.ansible.com/ansible/intro_dynamic_inventory.html)
