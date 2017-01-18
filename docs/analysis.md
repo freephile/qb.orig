@@ -114,11 +114,15 @@ The backup system for LCC uses duplicity, which has documentation at <http://dup
 
 #### Patrick Heeney
 
-Developed the 'Protobox' (http://getprotobox.com Nice GUI)  The Protobox is a model for the QualityBox project.
+Developed the [Protobox](http://getprotobox.com) The Protobox is a model for the QualityBox project on how far we could push customization in terms of sizing, deployment, features etc.  However, we'll need a much more controlled environment for supported (hosted) instances so exposing all this flexibility doesn't gain value for the SAAS model.
 
 -   <https://github.com/protobox/protobox-docs/blob/master/about.md> static website in markdown
 -   <http://getprotobox.com/docs/modules> What's interesting is that he is offering a bunch of choices for web server, PHP, HHVM, Mailcatcher, database server, Node and data stores
 -   <https://github.com/protobox/protobox>
+
+#### Juan Treminio
+
+Juan is the developer of [PuPHPet](https://puphpet.com/) (like Protobox).  PuPHPet is a PHP front-end configurator for VirtualBox that can deploy (using Puppet) against several targets: RackSpace, DigitalOcean, Linode, AWS, Google and of course Localhost.  (Reminder: there is a VirtualBox plugin for each of these targets.)  https://github.com/puphpet/puphpet  When you consider the localhost target, PuPHPet is a web application that helps you write your Vagrantfile and also gives you a box image that corresponds to the OS you choose.
 
 #### Steve Kuznetsov
 
@@ -127,6 +131,8 @@ Developed the 'Protobox' (http://getprotobox.com Nice GUI)  The Protobox is a mo
 #### MediaWiki Vagrant / MediaWiki Core Developers
 
 Having used [MediaWiki-Vagrant](https://www.mediawiki.org/wiki/MediaWiki-Vagrant) for development purposes, I'm familiar with how awesome it is. It is not suitable for production hosting since it's aimed squarely at development. However, it could be used for the development box deployment; and also modified to create a production box equivalent. At the very least, it's an excellent example that has been created and vetted by the team at WikiMedia Foundation.
+
+Also note: there is an [open issue](https://phabricator.wikimedia.org/T53782) for creating a GUI for MediaWiki-Vagrant just like Juan did with PuPHPet.
 
 Footnotes
 ---------
