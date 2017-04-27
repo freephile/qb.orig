@@ -128,6 +128,10 @@ Juan is the developer of [PuPHPet](https://puphpet.com/) (like Protobox).  PuPHP
 
 <https://github.com/stevekuznetsov/origin-ci-tool/blob/master/oct/ansible/oct/playbooks/prepare/main.yml#L25-L36> I like his 'ensure this playbook is well-formed' task. Also, his whole repo may be a good example of using Vagrant with Ansible... OpenShift is a container platform by RedHat for using Docker etc.
 
+#### James Montalvo
+
+Creator of the [meza](https://github.com/enterprisemediawiki/meza) project, and [other MediaWiki development](https://github.com/jamesmontalvo3), James works at NASA and has been developing [solutions for MediaWiki](https://www.mediawiki.org/wiki/User:Jamesmontalvo3) for several years.  I just discovered his work, and he's actively developing it, so I need to check how Meza and QualityBox can benefit each other.
+
 #### MediaWiki Vagrant / MediaWiki Core Developers
 
 Having used [MediaWiki-Vagrant](https://www.mediawiki.org/wiki/MediaWiki-Vagrant) for development purposes, I'm familiar with how awesome it is. It is not suitable for production hosting since it's aimed squarely at development. However, it could be used for the development box deployment; and also modified to create a production box equivalent. At the very least, it's an excellent example that has been created and vetted by the team at WikiMedia Foundation.
