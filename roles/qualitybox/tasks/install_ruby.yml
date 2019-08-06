@@ -1,14 +1,12 @@
 ---
 
-- name: Add ppa:brightbox/ruby-ng
-  apt_repository: repo=ppa:brightbox/ruby-ng
-
 - name: Remove Ruby
   apt: name={{item}} state=absent
   with_items:
     - ruby1.9.1
     - ruby1.8
     - ruby2.0
+    - ruby2.2
 
 - name: Install Ruby
   apt: name={{item}}
@@ -16,7 +14,6 @@
     update_cache=yes
     force=yes
   with_items:
-    - ruby2.2
-    - ruby2.2-dev
+    - ruby2.3
+    - ruby2.3-dev
     - rubygems
-    - rubygems1.8
