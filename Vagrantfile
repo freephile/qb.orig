@@ -24,7 +24,7 @@ Vagrant.configure(2) do |config|
   
   ## We'll use an Ubuntu base box for the moment.
   ## Later we'll probably provide our own base box
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "debian/contrib-stretch64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
