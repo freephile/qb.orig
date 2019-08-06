@@ -1,35 +1,36 @@
 ---
 
 - name: Install PHP packages
-  apt: name={{item}}
-    state=latest
-    update_cache=yes
-    force=yes
-  with_items:
-    - php5
-#     - php5-apcu
-    - php5-cgi
-    - php5-cli
-    - php5-common
-    - php5-curl
-    - php5-dev
-    - php5-gd
-    - php5-imagick
-    - php5-json
-    - php5-ldap
-    - php5-mysqlnd
-    - php5-odbc
-    - php5-readline
-    - php5-sqlite
-    - php5-tidy
-    - php5-xcache
-    - php5-xmlrpc
-    - php5-xsl
-    - libapache2-mod-php5
+  apt: 
+    name: "{{ packages }}"
+  vars:
+    packages:  
+      - php
+      - php-apcu
+      - php-cgi
+      - php-cli
+      - php-common
+      - php-curl
+      - php-dev
+      - php-gd
+      - php-imagick
+      - php-json
+      - php-ldap
+      - php-mysqlnd
+      - php-odbc
+      - php-readline
+      - php-sqlite3
+      - php-tidy
+      - php-xmlrpc
+      - php-xsl
+      - libapache2-mod-php
+    state: latest
+    update_cache: yes
+    force: yes
 
 - name: edit php configuration file 1/2
   lineinfile:
-    dest=/etc/php5/apache2/php.ini
+    dest=/etc/php/7.0/apache2/php.ini
     regexp="^;?memory_limit\s*="
     line="memory_limit = {{ PHP_MEMORY_LIMIT }}"
     backup=yes
@@ -37,7 +38,7 @@
 
 - name: edit php configuration file 2/2
   lineinfile:
-    dest=/etc/php5/apache2/php.ini
+    dest=/etc/php/7.0/apache2/php.ini
     regexp="^;?session\.gc_maxlifetime\s*="
     line="session.gc_maxlifetime = {{ PHP_SESSION_GC_MAXLIFETIME }}"
   when: PHP_SESSION_GC_MAXLIFETIME is defined
