@@ -141,13 +141,12 @@ DEFAULT_EXTENSIONS:
     legacy: true
     enable: global
 
-  - name: "SemanticForms"
-    url: "{{ MW_EXTENSIONS_GIT_URL_ROOT }}SemanticForms.git"
+  - name: "PageForms"
+    url: "{{ MW_EXTENSIONS_GIT_URL_ROOT }}PageForms.git"
     version: "0dae7d5e995f"
-    legacy: true
     enable: global
     config: |
-      $sfgRenameEditTabs=true;
+      $pfgRenameEditTabs=true;
 
   - name: "SemanticRating"
     url: "{{ MW_EXTENSIONS_GIT_URL_ROOT }}SemanticRating.git"
@@ -164,33 +163,14 @@ DEFAULT_EXTENSIONS:
     version: master
     enable: global
 
-  - name: "SemanticTitle"
-    url: "{{ MW_EXTENSIONS_GIT_URL_ROOT }}SemanticTitle.git"
+  - name: "DisplayTitle"
+    url: "{{ MW_EXTENSIONS_GIT_URL_ROOT }}DisplayTitle.git"
     version: master
     legacy: true
     enable: global
     config: |
       $wgAllowDisplayTitle = true;
       $wgRestrictDisplayTitle = false;
-
-  - name: "VIKI"
-    url: "{{ MW_EXTENSIONS_GIT_URL_ROOT }}VIKI.git"
-    version: master
-    enable: global
-    config: |
-      $wgRegisterInternalExternals = true;
-      $wgVIKI_Hidden_Categories = array('Framework Pages');
-      $wgVIKI_Second_Order_Links = true;
-
-  - name: "VikiTitleIcon"
-    url: "{{ MW_EXTENSIONS_GIT_URL_ROOT }}VikiTitleIcon.git"
-    version: master
-    enable: global
-
-  - name: "VikiSemanticTitle"
-    url: "{{ MW_EXTENSIONS_GIT_URL_ROOT }}VikiSemanticTitle.git"
-    version: master
-    enable: global
 
   - name: "JSBreadCrumbs"
     url: "{{ MW_EXTENSIONS_GIT_URL_ROOT }}JSBreadCrumbs.git"
@@ -240,16 +220,8 @@ DEFAULT_EXTENSIONS:
     url: "{{ MW_EXTENSIONS_GIT_URL_ROOT }}Cargo.git"
     version: "b069a7e"
 
-  - name: "CustomNavBlocks"
-    url: "https://github.com/mathiasertl/CustomNavBlocks.git"
-    version: master
-
-  - name: "SimpleTooltip"
-    url: "https://github.com/Fannon/SimpleTooltip.git"
-    version: master
-
-  - name: "Piwik"
-    url: "https://github.com/DaSchTour/piwik-mediawiki-extension.git"
+  - name: "Matomo"
+    url: "https://github.com/DaSchTour/matomo-mediawiki-extension.git"
     version: master
 
   - name: "Widgets"

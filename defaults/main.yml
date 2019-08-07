@@ -22,8 +22,8 @@ do_ssh_name: ansible
 
 # DO droplet settings
 do_region: nyc1 # New York City
-do_size: 512mb # 512MB
-do_image: ubuntu-14-04-x64 # Ubuntu 14.04 x32
+do_size: 8gb 
+do_image: debian-9.7-x64 
 
 # SSH
 ssh_port: 22
