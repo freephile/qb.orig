@@ -7,7 +7,7 @@
     force=yes
   with_items: 
     - php-pear
-    - php5-dev
+    - php-dev
     - libpcre3-dev
     - make
   when: ansible_os_family == 'Debian'
@@ -18,7 +18,7 @@
     state=latest
   with_items:
     - php-pear
-    - php5-dev
+    - php-dev
     - pcre-devel
     - make
   when: ansible_os_family in ['CentOS', 'Fedora', 'OpenSuse', 'RedHat']
@@ -40,47 +40,3 @@
 - name: Pear | set pear auto-discover
   command: pear config-set auto_discover 1
 
-# Pear Channels 
-
-# TODO: This will always error out the first time it's run (if channels is defined)
-# For now we're not using any channels; and so it's not defined in vars
-- name: Pear | install channels
-  command: pear channel-discover {{ item }}
-  with_items: php.pear.channels
-  when: php.pear.channels is defined
-  register: channel_result
-  changed_when: "'initialized' not in channel_result.stdout"
-  failed_when: "'already initialized' not in channel_result.stdout"
-
-# Pear Modules
-
-- name: Pear | install pear mail module
-  pear: name=Mail state=latest
-  register: pear_result
-  changed_when: "'already installed' not in pear_result.msg"
-
-# - debug: msg="{{ pear_result }}"
-
-- name: Pear | install pear Net_SMTP module
-  pear: name=Net_SMTP state=latest
-  register: pear_result
-  changed_when: "'already installed' not in pear_result.msg"
-
-- name: Pear | install pear Image_GraphViz module
-  pear: name=Image_GraphViz state=latest
-  register: pear_result
-  changed_when: "'already installed' not in pear_result.msg"
-
-# PECL requirements
-
-# We want the yaml package and also fix up the php.ini
-- name: Install Pecl yaml package
-  # "cmd": "yes '' | pecl install --ignore-errors yaml",
-  # the command implementation has .stdout .stderr .rc .start
-  # we use the pear module because it doesn't "fail" when it's run a second time
-  pear: name=pecl/yaml state=latest
-  register: pear_result
-  changed_when: "'already installed' not in pear_result.msg"
-
-- name: Add extension=yaml.so to php.ini
-  lineinfile: dest=/etc/php5/apache2/php.ini line=extension=yaml.so
