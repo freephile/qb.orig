@@ -17,6 +17,7 @@
       - php-json
       - php-ldap
       - php-mysqlnd
+      - php-mbstring
       - php-odbc
       - php-readline
       - php-sqlite3
