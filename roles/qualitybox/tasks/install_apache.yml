@@ -5,7 +5,6 @@
     state=latest
   with_items:
     - "{{ apache }}"
-    - libapache2-mod-auth-mysql
     - apachetop
     - apache2-utils
   
