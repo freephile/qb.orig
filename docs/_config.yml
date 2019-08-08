@@ -41,3 +41,5 @@ defaults:
       path: "" # an emtpy string here means all files in the project
     values:
       layout: "default" # add the default layout to all pages/posts
+
+theme: jekyll-theme-slate
