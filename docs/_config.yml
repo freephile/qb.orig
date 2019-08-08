@@ -31,7 +31,7 @@ google_analytics: UA-39339059-2
 markdown: kramdown
 # theme: jekyll-theme-modernist
 # theme: jekyll-theme-minimal
-remote_theme: jekyll/minima
+# remote_theme: jekyll/minima
 exclude:
   - Gemfile
   - Gemfile.lock
@@ -42,4 +42,4 @@ defaults:
     values:
       layout: "default" # add the default layout to all pages/posts
 
-theme: jekyll-theme-slate
+theme: minima
