@@ -1,8 +1,3 @@
----
-title: farm
-permalink: /farm/
----
-
 Farm Design
 -----------
 

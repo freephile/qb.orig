@@ -3,7 +3,7 @@ title: look and feel
 permalink: /look_and_feel/
 ---
 
-The QualityBox features a grid layout. There is a Top navbar, bottom footer with all your content in the middle. <sup>[1](#footnote1)</sup>
+QualityBox features a grid layout. There is a Top navbar, bottom footer with all your content in the middle. <sup>[1](#footnote1)</sup>
 
 There are two choices for the "Look and Feel" (some projects like [Drupal](https://freephile.org/wiki/Drupal "wikilink") or [WordPress](https://freephile.org/wiki/WordPress "wikilink") call this a 'theme', while the MediaWiki project calls it a 'skin'). QualityBox offers both [Chameleon](https://github.com/wikimedia/mediawiki-skins-chameleon) and [Foreground](http://foreground.wikiproject.net/wiki/Main_Page). Both of these theme choices take the bland out of the normal MediaWiki Look and Feel. They provide not only a pleasant user experience but also one that is mobile-first; which adds to your Search Engine Optimization.
 
@@ -15,39 +15,31 @@ The Chameleon skin uses Twitter's [Bootstrap](https://freephile.org/wiki/Bootstr
 Chameleon Documentation
 -----------------------
 
-<https://github.com/wikimedia/mediawiki-skins-chameleon/blob/master/docs/index.md> <sup>[3](#footnote3)</sup>
+<https://github.com/wikimedia/mediawiki-skins-chameleon/blob/master/docs/index.md> 
 
 Foreground
 ----------
 
 Foreground is used by WikiApiary
 
-One great thing about Foreground is that it's based on [Foundation](http://foundation.zurb.com/) (by Zurb) <sup>[4](#footnote4)</sup>
+One great thing about Foreground is that it's based on [Foundation](http://foundation.zurb.com/) (by Zurb) <sup>[3](#footnote3)</sup>
 
-One distinct problem with Foreground is that it's based on **[Foundation 4](https://github.com/zurb/foundation-sites)** (two versions out-of-date). There is a branch for Foundation 5 <https://github.com/thingles/foreground/tree/feature/foundation5>, but I believe development has stalled on compatibility issues <sup>[5](#footnote5)</sup><sup>[6](#footnote6)</sup> with newer Foundation and the markup clashing with what's allowed by the MediaWiki parser. I'll ping the community to find more detail on the status and/or other good options. This skin is used by WikiApiary so I expect there to be relatively good support and active development for it. But it looks instead like WikiApiary is stuck because of the evolution of Foreground has made it incompatible with the wiki parser. The mailing list is inactive. The developers are Garrick van Buren, Jamie Thingelstad, Tom Hutchison Chameleon may be the better option at this point.
 
 Foreground Highlights
 ---------------------
 
 -   MediaWiki on top and at the bottom, nothing but content in the middle.
--   [Tabs](http://foreground.wikiproject.net/wiki/Tabs Useful). Built-in and responsive tabs. Better and faster than HeaderTabs extension.
--   [Typography](http://foreground.wikiproject.net/wiki/Type Smart). Choose the design of the text that you need.
--   [Layout](http://foreground.wikiproject.net/wiki/Grid Grid). Place your information efficiently on desktop and mobile devices
--   Full support of [Font Awesome](http://fortawesome.github.io/Font-Awesome/) (v4.3)!
+-   [Useful Tabs](http://foreground.wikiproject.net/wiki/Tabs). Built-in and responsive tabs. Better and faster than HeaderTabs extension.
+-   [Smart Typography](http://foreground.wikiproject.net/wiki/Type). Choose the design of the text that you need.
+-   [Grid Layout](http://foreground.wikiproject.net/wiki/Grid). Place your information efficiently on desktop and mobile devices
+-   Full support of [Font Awesome](http://fortawesome.github.io/Font-Awesome/)!
 -   Simple customization http://foreground.wikiproject.net/wiki/Customizing
 
-Foundation 4 Documentation
---------------------------
-
-<http://foundation.zurb.com/sites/docs/v/4.3.2/>
 
 
 Footnotes
 ---------
 
-<a name="footnote1">[1]</a>  Need screenshot of finished demo site  
+<a name="footnote1">[1]</a>  Need screenshot of finished [demo site](https://demo.qualitybox.us)  
 <a name="footnote2">[2]</a>  test implementation of the '[spacelab](https://bootswatch.com/spacelab/)' and 'paper' themes  
-<a name="footnote3">[3]</a>  Actually add Chameleon. Since it's not a download, but rather installed with composer, the steps will be different than the current Vector and Foreground aka shell: composer require "mediawiki/chameleon-skin:\~1.0" Test the implementation and also reconfigure the whole layout of the 'farm' configs and overrides  
-<a name="footnote4">[4]</a> Foundation is a Framework for any device, medium, and accessibility. Foundation is a family of responsive front-end frameworks that make it easy to design beautiful responsive websites, apps and emails that look amazing on any device. Foundation is semantic, readable, flexible, and completely customizable. We’re constantly adding new resources and code snippets, including these handy HTML templates to help get you started! - description by Zurb  
-<a name="footnote5">[5]</a> <https://github.com/thingles/foreground/issues/82>  
-<a name="footnote6">[6]</a> <https://github.com/thingles/foreground/pull/102>
+<a name="footnote4">[3]</a> Foundation is a Framework for any device, medium, and accessibility. Foundation is a family of responsive front-end frameworks that make it easy to design beautiful responsive websites, apps and emails that look amazing on any device. Foundation is semantic, readable, flexible, and completely customizable. We’re constantly adding new resources and code snippets, including these handy HTML templates to help get you started! - description by Zurb  
