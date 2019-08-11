@@ -19,6 +19,6 @@
         url: "{{ MW_SKINS_GIT_URL_ROOT }}Vector.git"
         version: "{{ MW_RELEASE }}"
 
-      - name: "foreground"
-        url: https://github.com/thingles/foreground.git
+      - name: "Foreground"
+        url: https://github.com/jthingelstad/foreground
         version: master
