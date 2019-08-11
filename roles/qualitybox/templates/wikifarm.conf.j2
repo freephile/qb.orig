@@ -32,13 +32,13 @@ SetEnv WIKI_NAME="%{HTTP_HOST}"
   # 0     the whole requested host name 'foo.acme.com' if that was the requested domain
   # -2  the penultimate part 'acme' of foo.acme.com
   # include the server name in the filenames used to satisfy requests
-  VirtualDocumentRoot "/var/www/clients/%-2/%0/w"
+  VirtualDocumentRoot "/var/www/clients/%-2/%0"
   VirtualScriptAlias  "/var/www/clients/%-2/%0/cgi-bin"
   # DocumentRoot "/var/www/clients/example.com/wiki.example.com/w"
 
   {# the instance directory is /var/www/clients #}
   {# the double asterisks here are helpful globs #}
-  <Directory "{{ MW_INSTANCE_DIRECTORY }}/*/*/w">
+  <Directory "{{ MW_INSTANCE_DIRECTORY }}/*/*">
     Require all granted
     Options Indexes FollowSymlinks
     AllowOverride All
