@@ -57,7 +57,7 @@
       set_fact:
         wiki_hostname: "{{ do_name }}"
         
-    - debug: msg="You're new droplet has been launched. Add it to your hosts file with {{wiki_hostname}} ansible_host={{ do_droplet.droplet.ip_address }}  Then run ansible-playbook provision.yml --extra-vars 'wiki_hostname={{wiki_hostname}} apache_user=www-data'"
+    - debug: msg="Your new droplet has been launched. Add it to your hosts file with {{wiki_hostname}} ansible_host={{ do_droplet.droplet.ip_address }}  Then run ansible-playbook provision.yml --extra-vars 'wiki_hostname={{wiki_hostname}} apache_user=www-data'"
         
 ### need these for xenial  
 #    - name: apt-get update
